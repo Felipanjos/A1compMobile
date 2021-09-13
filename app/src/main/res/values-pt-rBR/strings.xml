@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">A1</string>
-    <string name="button_navigation">Navegação</string>
-    <string name="button_creditos">Créditos</string>
-    <string name="button_gnss">GNSS</string>
-    <string name="button_config">Configurações</string>
-    <string name="title_main">Tela Principal</string>
-    <string name="button_exit">Sair</string>
-    <string name="button_config_back">Voltar</string>
+    <string name="labelMap">Mapa</string>
+    <string name="labelCreditos">Créditos</string>
+    <string name="labelConfig">Configurações</string>
+    <string name="labelInicio">Início</string>
+    <string name="labelSair">Sair</string>
+    <string name="labelVoltar">Voltar</string>
+    <string name="msgFormatoCordenadas">Formato das coodenadas geográficas</string>
+    <string name="msgUnidadeVelocidade">Unidade da velocidade</string>
+    <string name="msgOrientacaoMapa">Orientação do mapa</string>
+    <string name="msgTipoMapa">Tipo do mapa</string>
+    <string name="msgInfoTrafego">Informações do tráfego</string>
+    <string name="labelHistorico">Histórico</string>
+    <string name="msgWIP">Página em construção</string>
+    <string name="labelDev">Desenvolvido por:</string>
+    <string name="labelAppInfo">Informações sobre a aplicação:</string>
+    <string name="labelKm">(Quilômetros por hora)</string>
+    <string name="labelMph">(Milhas por hora)</string>
+    <string name="labelGrau1">Grau decimal</string>
+    <string name="labelGrau2">Grau-minuto decimal</string>
+    <string name="labelGrau3">Grau-minuto-segundo decimal</string>
+    <string name="labelNavegacao">Navegação</string>
 </resources>

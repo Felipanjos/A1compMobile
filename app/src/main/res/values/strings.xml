@@ -1,10 +1,24 @@
 <resources>
     <string name="app_name">A1</string>
-    <string name="button_navigation">Navigation</string>
-    <string name="button_creditos">Credits</string>
-    <string name="button_gnss">GNSS</string>
-    <string name="button_config">Settings</string>
-    <string name="title_main">Main Screen</string>
-    <string name="button_exit">Exit</string>
-    <string name="button_config_back">Back</string>
+    <string name="labelMap">Map</string>
+    <string name="labelCreditos">Credits</string>
+    <string name="labelConfig">Settings</string>
+    <string name="labelInicio">Main</string>
+    <string name="labelSair">Exit</string>
+    <string name="labelVoltar">Back</string>
+    <string name="msgFormatoCordenadas"><b>Geographic coordinates format</b></string>
+    <string name="msgUnidadeVelocidade"><b>Speed unit</b></string>
+    <string name="msgOrientacaoMapa"><b>Map orientation</b></string>
+    <string name="msgTipoMapa"><b>Map type</b></string>
+    <string name="msgInfoTrafego"><b>Traffic information</b></string>
+    <string name="labelHistorico">History</string>
+    <string name="msgWIP">Page under construction.</string>
+    <string name="labelDev">Developed by:</string>
+    <string name="labelAppInfo">Application info:</string>
+    <string name="labelKm">(Kilometers per hour)</string>
+    <string name="labelMph">(Miles per hour)</string>
+    <string name="labelGrau1">Decimal Degree</string>
+    <string name="labelGrau2">Grau-Minuto decimal</string>
+    <string name="labelGrau3">Grau-Minuto-Segundo decimal</string>
+    <string name="labelNavegacao">Navigation</string>
 </resources>

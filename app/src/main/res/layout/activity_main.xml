@@ -7,70 +7,89 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button_navigation"
+        android:id="@+id/buttonNavegacao"
         android:layout_width="232dp"
         android:layout_height="41dp"
         android:layout_marginStart="77dp"
         android:layout_marginTop="61dp"
         android:layout_marginEnd="102dp"
-        android:layout_marginBottom="629dp"
-        android:text="@string/button_navigation"
+        android:text="@string/labelMap"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConfig"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buttonConfig"
+        android:layout_width="232dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="108dp"
+        android:text="@string/labelConfig"
+        app:layout_constraintBottom_toTopOf="@+id/buttonGnss"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buttonGnss"
+        android:layout_width="232dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="488dp"
+        android:text="GNSS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_settings"
+        android:id="@+id/buttonHistorico"
         android:layout_width="232dp"
         android:layout_height="41dp"
         android:layout_marginStart="77dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginBottom="558dp"
-        android:text="@string/button_config"
+        android:layout_marginTop="265dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="425dp"
+        android:text="@string/labelHistorico"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_gnss"
+        android:id="@+id/buttonFechar"
         android:layout_width="232dp"
         android:layout_height="41dp"
-        android:layout_marginTop="202dp"
-        android:layout_marginBottom="488dp"
-        android:text="@string/button_gnss"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="389dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="301dp"
+        android:text="@string/labelSair"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/buttonCredit"
         android:layout_width="232dp"
         android:layout_height="41dp"
-        android:text="@string/button_creditos"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="331dp"
+        android:layout_marginEnd="102dp"
+        android:layout_marginBottom="359dp"
+        android:text="@string/labelCreditos"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_gnss"
-        app:layout_constraintVertical_bias="0.04" />
-
-    <Button
-        android:id="@+id/button_sair"
-        android:layout_width="232dp"
-        android:layout_height="41dp"
-        android:text="@string/button_exit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.43"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_gnss"
-        app:layout_constraintVertical_bias="0.176" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
