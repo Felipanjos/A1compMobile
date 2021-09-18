@@ -6,19 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ConfigActivity">
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/labelSatelite"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConfigNavegacao"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.482"
-        app:layout_constraintStart_toEndOf="@+id/radioButton"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMap"
-        app:layout_constraintVertical_bias="0.022" />
-
     <Spinner
         android:id="@+id/spinnerMap"
         android:layout_width="322dp"
@@ -95,31 +82,7 @@
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.775" />
-
-    <RadioButton
-        android:id="@+id/radioKm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Km/h"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.107"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.298" />
-
-    <RadioButton
-        android:id="@+id/radioMph"
-        android:layout_width="75dp"
-        android:layout_height="49dp"
-        android:text="Mph"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.592"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.299" />
+        app:layout_constraintVertical_bias="0.785" />
 
     <TextView
         android:id="@+id/textView13"
@@ -129,10 +92,10 @@
         android:textSize="35px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.731"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34" />
+        app:layout_constraintVertical_bias="0.337" />
 
     <TextView
         android:id="@+id/textView12"
@@ -142,10 +105,10 @@
         android:textSize="35px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
+        app:layout_constraintHorizontal_bias="0.426"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.34" />
+        app:layout_constraintVertical_bias="0.28" />
 
     <TextView
         android:id="@+id/textView3"
@@ -184,19 +147,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.928" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/labelVetorial"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConfigVoltar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/buttonConfigSalvar"
         android:layout_width="wrap_content"
@@ -208,5 +158,54 @@
         app:layout_constraintStart_toEndOf="@+id/buttonConfigVoltar"
         app:layout_constraintTop_toBottomOf="@+id/spinnerMap"
         app:layout_constraintVertical_bias="0.842" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupVelocidade"
+        android:layout_width="332dp"
+        android:layout_height="113dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerMap"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerFormat"
+        app:layout_constraintVertical_bias="0.58">
+
+        <RadioButton
+            android:id="@+id/radioKm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Km/h" />
+
+        <RadioButton
+            android:id="@+id/radioMph"
+            android:layout_width="75dp"
+            android:layout_height="49dp"
+            android:text="Mph" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/radioGroupTipo"
+        android:layout_width="323dp"
+        android:layout_height="90dp"
+        app:layout_constraintBottom_toTopOf="@+id/infoTrafego"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.013"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerMap"
+        app:layout_constraintVertical_bias="0.795">
+
+        <RadioButton
+            android:id="@+id/radioVetorial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labelVetorial" />
+
+        <RadioButton
+            android:id="@+id/radioSatelite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labelSatelite" />
+
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,4 +26,5 @@
     <string name="labelMap2">North up(map north aligned with device top)</string>
     <string name="labelMap3">Course up (map top aligned with travelling direction)</string>
     <string name="labelSalvar">Save</string>
+    <string name="msgSalvar">Settings saved</string>
 </resources>
