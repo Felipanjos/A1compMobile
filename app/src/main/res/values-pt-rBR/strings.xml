@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">A1</string>
-    <string name="labelMap">Mapa</string>
     <string name="labelCreditos">Créditos</string>
     <string name="labelConfig">Configurações</string>
     <string name="labelInicio">Início</string>
@@ -22,4 +21,10 @@
     <string name="labelGrau2">Grau-minuto decimal</string>
     <string name="labelGrau3">Grau-minuto-segundo decimal</string>
     <string name="labelNavegacao">Navegação</string>
+    <string name="labelVetorial">Vetorial</string>
+    <string name="labelSatelite">Imagem de satélite</string>
+    <string name="labelMap1">Nenhuma (você escolhe manualmente a orientação do mapa)</string>
+    <string name="labelMap2">Norte para cima (norte do mapa alinhado com o topo do dispositivo)</string>
+    <string name="labelMap3">Curso para cima (topo do mapa alinhado com a direção do deslocamento)</string>
+    <string name="labelSalvar">Salvar</string>
 </resources>

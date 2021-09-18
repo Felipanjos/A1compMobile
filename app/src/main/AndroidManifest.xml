@@ -9,18 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.A1">
+
         <activity
             android:name=".NavegacaoActivity"
             android:exported="true"
-            android:label="@string/labelNavegacao"/>
+            android:label="@string/labelNavegacao" />
         <activity
             android:name=".HistoricoActivity"
             android:exported="true"
-            android:label="@string/labelHistorico"/>
+            android:label="@string/labelHistorico" />
         <activity
             android:name=".GNSSActivity"
             android:exported="true"
-            android:label="GNSS"/>
+            android:label="GNSS" />
         <activity
             android:name=".CreditActivity"
             android:exported="true"

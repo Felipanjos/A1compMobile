@@ -11,7 +11,7 @@ public class GNSSActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gnssactivity);
+        setContentView(R.layout.activity_gnss);
 
         Button buttonVoltar = (Button) findViewById(R.id.buttonGnssVoltar);
         buttonVoltar.setOnClickListener(this);
