@@ -15,10 +15,13 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+
+
 public class ConfigActivity extends AppCompatActivity implements View.OnClickListener {
 
     private SharedPreferences dados;
     SharedPreferences.Editor editorDados;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

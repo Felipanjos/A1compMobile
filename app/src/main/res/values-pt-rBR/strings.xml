@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">A1</string>
+    <string name="app_name">Cartogramaps</string>
     <string name="labelCreditos">Créditos</string>
     <string name="labelConfig">Configurações</string>
     <string name="labelInicio">Início</string>
