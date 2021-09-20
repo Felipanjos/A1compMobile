@@ -22,7 +22,6 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
     private SharedPreferences dados;
     SharedPreferences.Editor editorDados;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         dados = getSharedPreferences("Config", Context.MODE_PRIVATE);

@@ -17,8 +17,10 @@
         android:text="@string/labelVoltar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView7"
@@ -44,7 +46,7 @@
         android:layout_marginTop="137dp"
         android:layout_marginEnd="116dp"
         android:layout_marginBottom="575dp"
-        android:text="Guilherme Mateus do Carmo"
+        android:text="@string/dev2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +60,7 @@
         android:layout_marginTop="216dp"
         android:layout_marginEnd="131dp"
         android:layout_marginBottom="496dp"
-        android:text="Felipe Santos dos Anjos"
+        android:text="@string/dev1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +74,7 @@
         android:layout_marginTop="178dp"
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="534dp"
-        android:text="Matheus super poderosas"
+        android:text="@string/dev3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -91,4 +93,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="171dp"
+        tools:layout_editor_absoluteY="332dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

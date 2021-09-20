@@ -28,4 +28,8 @@
     <string name="labelMap3">Curso para cima (topo do mapa alinhado com a direção do deslocamento)</string>
     <string name="labelSalvar">Salvar</string>
     <string name="msgSalvar">Configurações salvas</string>
+    <string name="dev3">Matheus Rodrigues de Andrade</string>
+    <string name="dev2">Guilherme Mateus do Carmo</string>
+    <string name="dev1">Felipe Santos dos Anjos</string>
+    <string name="appInfo">Desenvolvido em Java, usando Android Studio. Aplicativo designado para Android API 19. Versão do app: 0.7</string>
 </resources>

@@ -27,4 +27,8 @@
     <string name="labelMap3">Course up (map top aligned with travelling direction)</string>
     <string name="labelSalvar">Save</string>
     <string name="msgSalvar">Settings saved</string>
+    <string name="dev1">Felipe Santos dos Anjos</string>
+    <string name="dev2">Guilherme Mateus do Carmo</string>
+    <string name="dev3">Matheus Rodrigues de Andrade</string>
+    <string name="appInfo">Developed in Java, using Android Studio, app targeting Android API 19, App version 0.7</string>
 </resources>
