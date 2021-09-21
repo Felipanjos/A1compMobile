@@ -17,8 +17,8 @@
     <string name="labelKm">(Kilometers per hour)</string>
     <string name="labelMph">(Miles per hour)</string>
     <string name="labelGrau1">Decimal Degree</string>
-    <string name="labelGrau2">Grau-Minuto decimal</string>
-    <string name="labelGrau3">Grau-Minuto-Segundo decimal</string>
+    <string name="labelGrau2">Degrees Decimal Minutes</string>
+    <string name="labelGrau3">Degrees Minutes Seconds</string>
     <string name="labelNavegacao">Navigation</string>
     <string name="labelVetorial">Vetorial</string>
     <string name="labelSatelite">Satellite image</string>

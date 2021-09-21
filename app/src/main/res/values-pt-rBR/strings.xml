@@ -18,8 +18,8 @@
     <string name="labelKm">(Quilômetros por hora)</string>
     <string name="labelMph">(Milhas por hora)</string>
     <string name="labelGrau1">Grau decimal</string>
-    <string name="labelGrau2">Grau-minuto decimal</string>
-    <string name="labelGrau3">Grau-minuto-segundo decimal</string>
+    <string name="labelGrau2">Grau-Minuto decimal</string>
+    <string name="labelGrau3">Grau-Minuto-Segundo decimal</string>
     <string name="labelNavegacao">Navegação</string>
     <string name="labelVetorial">Vetorial</string>
     <string name="labelSatelite">Imagem de satélite</string>

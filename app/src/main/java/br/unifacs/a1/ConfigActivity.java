@@ -15,7 +15,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-
+import br.unifacs.a1.databinding.ActivityConfigBinding;
 
 public class ConfigActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,10 +29,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
 
-        setSwitch();
-        setButton();
-        setRadio();
-        setSpinner();
+        setElements();
     }
 
     @Override
@@ -45,9 +42,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.buttonConfigSalvar:
-                saveSpinner();
-                saveSwitch();
-                saveRadio();
+                saveElements();
                 Toast.makeText(this, getResources().getString(R.string.msgSalvar), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.buttonConfigVoltar:
@@ -56,16 +51,26 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void setButton() {
+    public void setButton() {
         Button buttonConfigVoltar = (Button) findViewById(R.id.buttonConfigVoltar),
-               buttonConfigNavegacao = (Button) findViewById(R.id.buttonConfigNavegacao),
-               buttonConfigSalvar = (Button) findViewById(R.id.buttonConfigSalvar);
+                buttonConfigNavegacao = (Button) findViewById(R.id.buttonConfigNavegacao),
+                buttonConfigSalvar = (Button) findViewById(R.id.buttonConfigSalvar);
         buttonConfigVoltar.setOnClickListener(this);
         buttonConfigNavegacao.setOnClickListener(this);
         buttonConfigSalvar.setOnClickListener(this);
     }
 
-    private void setSpinner() {
+    public int posicao(Spinner spinner, String texto) {
+
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(texto)) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void setSpinner() {
 
         Spinner spinnerFormato = (Spinner) findViewById(R.id.spinnerFormat),
                 spinnerOrientacao = (Spinner) findViewById(R.id.spinnerMap);
@@ -86,14 +91,14 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         spinnerOrientacao.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.support_simple_spinner_dropdown_item, orientacoes));
 
-        spinnerFormato.setSelection(posicaoOpcao(spinnerFormato,
-                dados.getString("Formato", formato1)));
+        spinnerFormato.setSelection(
+                posicao(spinnerFormato, dados.getString("Formato", formato1)));
 
-        spinnerOrientacao.setSelection(posicaoOpcao(spinnerOrientacao,
-                dados.getString("Orientacao", orientacao1)));
+        spinnerOrientacao.setSelection(
+                posicao(spinnerOrientacao, dados.getString("Orientacao", orientacao1)));
     }
 
-    private void saveSpinner() {
+    public void saveSpinner() {
         Spinner spinnerFormato = (Spinner) findViewById(R.id.spinnerFormat),
                 spinnerOrientacao = (Spinner) findViewById(R.id.spinnerMap);
         // Persistência
@@ -108,22 +113,12 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private int posicaoOpcao(Spinner spinner, String texto) {
-
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(texto)) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    private void setSwitch() {
+    public void setSwitch() {
         Switch infoTrafego = (Switch) findViewById(R.id.infoTrafego);
         infoTrafego.setChecked((dados.getBoolean("Mostrar trafego", false)));
     }
 
-    private void saveSwitch() {
+    public void saveSwitch() {
 
         editorDados = dados.edit();
         Switch infoTrafego = (Switch) findViewById(R.id.infoTrafego);
@@ -138,11 +133,11 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void setRadio() {
+    public void setRadio() {
         RadioButton radioKm = (RadioButton) findViewById(R.id.radioKm),
-                    radioMph = (RadioButton) findViewById(R.id.radioMph),
-                    radioVetorial = (RadioButton) findViewById(R.id.radioVetorial),
-                    radioSatelite = (RadioButton) findViewById(R.id.radioSatelite);
+                radioMph = (RadioButton) findViewById(R.id.radioMph),
+                radioVetorial = (RadioButton) findViewById(R.id.radioVetorial),
+                radioSatelite = (RadioButton) findViewById(R.id.radioSatelite);
 
         if (!radioKm.isChecked() && !radioMph.isChecked())
             radioKm.setChecked(true);
@@ -155,7 +150,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         radioSatelite.setChecked(dados.getBoolean("Satelite", false));
     }
 
-    private void saveRadio() {
+    public void saveRadio() {
 
         RadioButton radioKm = (RadioButton) findViewById(R.id.radioKm),
                 radioMph = (RadioButton) findViewById(R.id.radioMph),
@@ -168,5 +163,18 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         editorDados.putBoolean("Vetorial", radioVetorial.isChecked());
         editorDados.putBoolean("Satelite", radioSatelite.isChecked());
         editorDados.commit();
+    }
+
+    public void setElements() {
+        setSwitch();
+        setButton();
+        setRadio();
+        setSpinner();
+    }
+
+    public void saveElements() {
+        saveRadio();
+        saveSwitch();
+        saveSpinner();
     }
 }
