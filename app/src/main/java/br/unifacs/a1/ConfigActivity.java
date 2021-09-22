@@ -15,7 +15,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import br.unifacs.a1.databinding.ActivityConfigBinding;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConfigActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -25,55 +26,36 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         dados = getSharedPreferences("Config", Context.MODE_PRIVATE);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_config);
-
-        setElements();
+            setElements();
     }
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
             case R.id.buttonConfigNavegacao:
-                Intent view_mapa = new Intent(this, NavegacaoActivity.class);
-                startActivity(view_mapa);
-                finish();
+                startMap();
                 break;
             case R.id.buttonConfigSalvar:
                 saveElements();
-                Toast.makeText(this, getResources().getString(R.string.msgSalvar), Toast.LENGTH_SHORT).show();
                 break;
             case R.id.buttonConfigVoltar:
-                finish();
+                startMain();
                 break;
         }
     }
 
-    public void setButton() {
-        Button buttonConfigVoltar = (Button) findViewById(R.id.buttonConfigVoltar),
-                buttonConfigNavegacao = (Button) findViewById(R.id.buttonConfigNavegacao),
-                buttonConfigSalvar = (Button) findViewById(R.id.buttonConfigSalvar);
-        buttonConfigVoltar.setOnClickListener(this);
-        buttonConfigNavegacao.setOnClickListener(this);
-        buttonConfigSalvar.setOnClickListener(this);
+    public void setButton(Map<String, Button> button) {
+        button.get("buttonConfigVoltar").setOnClickListener(this);
+        button.get("buttonConfigSalvar").setOnClickListener(this);
+        button.get("buttonConfigNavegacao").setOnClickListener(this);
     }
 
-    public int posicao(Spinner spinner, String texto) {
+    public void setSpinner(Map<String, Spinner> spinner) {
 
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if(spinner.getItemAtPosition(i).toString().equalsIgnoreCase(texto)) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    public void setSpinner() {
-
-        Spinner spinnerFormato = (Spinner) findViewById(R.id.spinnerFormat),
-                spinnerOrientacao = (Spinner) findViewById(R.id.spinnerMap);
+        Spinner spinnerFormato = spinner.get("spinnerFormato"),
+                spinnerOrientacao = spinner.get("spinnerOrientacao");
         // Labels do spinner
         String formato1 = getResources().getString(R.string.labelGrau1),
                 formato2 = getResources().getString(R.string.labelGrau2),
@@ -86,95 +68,137 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         String[] formatos = new String[]{formato1, formato2, formato3},
                 orientacoes = new String[]{orientacao1, orientacao2, orientacao3};
 
-        spinnerFormato.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item, formatos));
-        spinnerOrientacao.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item, orientacoes));
-
-        spinnerFormato.setSelection(
-                posicao(spinnerFormato, dados.getString("Formato", formato1)));
-
-        spinnerOrientacao.setSelection(
-                posicao(spinnerOrientacao, dados.getString("Orientacao", orientacao1)));
+        spinnerFormato.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, formatos));
+        spinnerFormato.setSelection(findSpinner(spinnerFormato, dados.getString("Formato", formato1)));
+        spinnerOrientacao.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, orientacoes));
+        spinnerOrientacao.setSelection(findSpinner(spinnerOrientacao, dados.getString("Orientacao", orientacao1)));
     }
 
-    public void saveSpinner() {
-        Spinner spinnerFormato = (Spinner) findViewById(R.id.spinnerFormat),
-                spinnerOrientacao = (Spinner) findViewById(R.id.spinnerMap);
-        // Persistência
+    public void saveSpinner(Map <String, Spinner> spinner) {
+
         editorDados = dados.edit();
-        String opcaoFormato = spinnerFormato.getSelectedItem().toString(),
-               opcaoOrientacao = spinnerOrientacao.getSelectedItem().toString();
 
         if (editorDados != null) {
-            editorDados.putString("Formato", opcaoFormato);
-            editorDados.putString("Orientacao", opcaoOrientacao);
+            editorDados.putString("Formato", spinner.get("spinnerFormato").getSelectedItem().toString());
+            editorDados.putString("Orientacao", spinner.get("spinnerOrientacao").getSelectedItem().toString());
             editorDados.commit();
         }
     }
 
-    public void setSwitch() {
-        Switch infoTrafego = (Switch) findViewById(R.id.infoTrafego);
-        infoTrafego.setChecked((dados.getBoolean("Mostrar trafego", false)));
+    public int findSpinner(Spinner spinner, String texto) {
+
+        for (int i = 0; i < spinner.getCount(); i++) {
+            if (spinner.getItemAtPosition(i).toString().equalsIgnoreCase(texto)) {
+                return i;
+            }
+        }
+        return 0;
     }
 
-    public void saveSwitch() {
+    public void setSwitch(Switch interruptor) {
+        interruptor.setChecked((dados.getBoolean("Mostrar trafego", false)));
+    }
+
+    public void saveSwitch(Switch interruptor) {
 
         editorDados = dados.edit();
-        Switch infoTrafego = (Switch) findViewById(R.id.infoTrafego);
-
-        if (infoTrafego.isChecked()) {
+        if (interruptor.isChecked()) {
             editorDados.putBoolean("Mostrar trafego", true);
-            editorDados.commit();
         }
-        else if (!infoTrafego.isChecked()) {
+        else {
             editorDados.putBoolean("Mostrar trafego", false);
-            editorDados.commit();
         }
-    }
-
-    public void setRadio() {
-        RadioButton radioKm = (RadioButton) findViewById(R.id.radioKm),
-                radioMph = (RadioButton) findViewById(R.id.radioMph),
-                radioVetorial = (RadioButton) findViewById(R.id.radioVetorial),
-                radioSatelite = (RadioButton) findViewById(R.id.radioSatelite);
-
-        if (!radioKm.isChecked() && !radioMph.isChecked())
-            radioKm.setChecked(true);
-        if (!radioVetorial.isChecked() && !radioSatelite.isChecked())
-            radioVetorial.setChecked(true);
-
-        radioKm.setChecked(dados.getBoolean("Km", true));
-        radioMph.setChecked(dados.getBoolean("Mph", false));
-        radioVetorial.setChecked(dados.getBoolean("Vetorial", true));
-        radioSatelite.setChecked(dados.getBoolean("Satelite", false));
-    }
-
-    public void saveRadio() {
-
-        RadioButton radioKm = (RadioButton) findViewById(R.id.radioKm),
-                radioMph = (RadioButton) findViewById(R.id.radioMph),
-                radioVetorial = (RadioButton) findViewById(R.id.radioVetorial),
-                radioSatelite = (RadioButton) findViewById(R.id.radioSatelite);
-
-        editorDados = dados.edit();
-        editorDados.putBoolean("Km", radioKm.isChecked());
-        editorDados.putBoolean("Mph", radioMph.isChecked());
-        editorDados.putBoolean("Vetorial", radioVetorial.isChecked());
-        editorDados.putBoolean("Satelite", radioSatelite.isChecked());
         editorDados.commit();
     }
 
-    public void setElements() {
-        setSwitch();
-        setButton();
-        setRadio();
-        setSpinner();
+    public void setRadio(Map<String, RadioButton> radio) {
+
+        if (!radio.get("radioKm").isChecked() && !radio.get("radioMph").isChecked())
+            radio.get("radioKm").setChecked(true);
+        if (!radio.get("radioVetorial").isChecked() && !radio.get("radioSatelite").isChecked())
+            radio.get("radioVetorial").setChecked(true);
+
+        radio.get("radioKm").setChecked(dados.getBoolean("Km", true));
+        radio.get("radioMph").setChecked(dados.getBoolean("Mph", false));
+        radio.get("radioVetorial").setChecked(dados.getBoolean("Vetorial", true));
+        radio.get("radioSatelite").setChecked(dados.getBoolean("Satelite", false));
     }
 
-    public void saveElements() {
-        saveRadio();
-        saveSwitch();
-        saveSpinner();
+    public void saveRadio(Map<String, RadioButton> radio) {
+
+        editorDados = dados.edit();
+            editorDados.putBoolean("Km", radio.get("radioKm").isChecked());
+            editorDados.putBoolean("Mph", radio.get("radioMph").isChecked());
+            editorDados.putBoolean("Vetorial", radio.get("radioVetorial").isChecked());
+            editorDados.putBoolean("Satelite", radio.get("radioSatelite").isChecked());
+        editorDados.commit();
+    }
+
+    public void operacao(String opcao) {
+
+        Map<String, Button> buttonMap = new HashMap<String, Button>();
+            buttonMap.put("buttonConfigVoltar", (Button) findViewById(R.id.buttonConfigVoltar));
+            buttonMap.put("buttonConfigNavegacao", (Button) findViewById(R.id.buttonConfigNavegacao));
+            buttonMap.put("buttonConfigSalvar", (Button) findViewById(R.id.buttonConfigSalvar));
+
+        Map<String, RadioButton> radioButtonMap = new HashMap<String, RadioButton>();
+            radioButtonMap.put("radioKm", (RadioButton) findViewById(R.id.radioKm));
+            radioButtonMap.put("radioMph", (RadioButton) findViewById(R.id.radioMph));
+            radioButtonMap.put("radioVetorial", (RadioButton) findViewById(R.id.radioVetorial));
+            radioButtonMap.put("radioSatelite", (RadioButton) findViewById(R.id.radioSatelite));
+
+        Map<String, Spinner> spinnerMap = new HashMap<String, Spinner>();
+            spinnerMap.put("spinnerFormato", (Spinner) findViewById(R.id.spinnerFormat));
+            spinnerMap.put("spinnerOrientacao", (Spinner) findViewById(R.id.spinnerMap));
+
+        Switch infoTrafego = (Switch) findViewById(R.id.infoTrafego);
+
+        switch (opcao) {
+            case "setButton":
+                setButton(buttonMap);
+                break;
+            case "setSpinner":
+                setSpinner(spinnerMap);
+                break;
+            case "setRadio":
+                setRadio(radioButtonMap);
+                break;
+            case "setSwitch":
+                setSwitch(infoTrafego);
+                break;
+            case "saveSpinner":
+                saveSpinner(spinnerMap);
+                break;
+            case "saveRadio":
+                saveRadio(radioButtonMap);
+                break;
+            case "saveSwitch":
+                saveSwitch(infoTrafego);
+                break;
+        }
+    }
+
+    private void setElements() {
+        operacao("setSwitch");
+        operacao("setSpinner");
+        operacao("setRadio");
+        operacao("setButton");
+    }
+
+    private void saveElements() {
+        operacao("saveSpinner");
+        operacao("saveSwitch");
+        operacao("saveRadio");
+        Toast.makeText(this, getResources().getString(R.string.msgSalvar), Toast.LENGTH_SHORT).show();
+    }
+
+    private void startMap() {
+        Intent viewMapa = new Intent(this, NavegacaoActivity.class);
+        startActivity(viewMapa);
+    }
+
+    private void startMain() {
+        Intent viewInicio = new Intent(this, MainActivity.class);
+        startActivity(viewInicio);
     }
 }

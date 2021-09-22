@@ -25,7 +25,7 @@
     <string name="labelSatelite">Imagem de satélite</string>
     <string name="labelMap1">Nenhuma (você escolhe manualmente a orientação do mapa)</string>
     <string name="labelMap2">Norte para cima (norte do mapa alinhado com o topo do dispositivo)</string>
-    <string name="labelMap3">Curso para cima (topo do mapa alinhado com a direção do deslocamento)</string>
+    <string name="labelMap3">Curso para cima (topo do mapa alinhado com o deslocamento)</string>
     <string name="labelSalvar">Salvar</string>
     <string name="msgSalvar">Configurações salvas</string>
     <string name="dev3">Matheus Rodrigues de Andrade</string>

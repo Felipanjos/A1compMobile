@@ -23,8 +23,8 @@
     <string name="labelVetorial">Vetorial</string>
     <string name="labelSatelite">Satellite image</string>
     <string name="labelMap1">None (you manually choose map orientation)</string>
-    <string name="labelMap2">North up(map north aligned with device top)</string>
-    <string name="labelMap3">Course up (map top aligned with travelling direction)</string>
+    <string name="labelMap2">North up (map north aligned with device top)</string>
+    <string name="labelMap3">Course up (map top aligned with direction)</string>
     <string name="labelSalvar">Save</string>
     <string name="msgSalvar">Settings saved</string>
     <string name="dev1">Felipe Santos dos Anjos</string>

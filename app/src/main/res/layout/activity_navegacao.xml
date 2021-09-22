@@ -6,6 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".NavegacaoActivity">
 
+    <Button
+        android:id="@+id/buttonNavegacaoConfig"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/labelConfig"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.528" />
+
     <TextView
         android:id="@+id/textView14"
         android:layout_width="165dp"
@@ -18,15 +30,15 @@
         app:layout_constraintVertical_bias="0.325" />
 
     <Button
-        android:id="@+id/buttonNavegacaoVoltar"
+        android:id="@+id/buttonNavegacaoInicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/labelVoltar"
+        android:text="@string/labelInicio"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.527" />
+        app:layout_constraintVertical_bias="0.528" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

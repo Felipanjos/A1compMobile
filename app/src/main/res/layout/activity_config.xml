@@ -1,211 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ConfigActivity">
+    tools:context=".ConfigActivity"
+    android:fillViewport="true">
 
-    <Spinner
-        android:id="@+id/spinnerMap"
-        android:layout_width="322dp"
-        android:layout_height="41dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.404"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.479" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spinnerFormat"
-        android:layout_width="322dp"
-        android:layout_height="41dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.111" />
+        <Spinner
+            android:id="@+id/spinnerFormat"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toTopOf="@+id/radioGroupVelocidade"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/msgFormatoCordenadas"
-        android:textSize="60px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.417"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.041" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/msgUnidadeVelocidade"
-        android:textSize="60px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.207" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/msgTipoMapa"
-        android:textSize="60px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.571" />
-
-    <Switch
-        android:id="@+id/infoTrafego"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/msgInfoTrafego"
-        android:textSize="60px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.222"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.785" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="139dp"
-        android:layout_height="20dp"
-        android:text="@string/labelMph"
-        android:textSize="35px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337" />
-
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/labelKm"
-        android:textSize="35px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.426"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.28" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/msgOrientacaoMapa"
-        android:textSize="60px"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.153"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.405" />
-
-    <Button
-        android:id="@+id/buttonConfigVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/labelVoltar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.928" />
-
-    <Button
-        android:id="@+id/buttonConfigNavegacao"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/labelNavegacao"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.943"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.928" />
-
-    <Button
-        android:id="@+id/buttonConfigSalvar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/labelSalvar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonConfigNavegacao"
-        app:layout_constraintHorizontal_bias="0.428"
-        app:layout_constraintStart_toEndOf="@+id/buttonConfigVoltar"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMap"
-        app:layout_constraintVertical_bias="0.842" />
-
-    <RadioGroup
-        android:id="@+id/radioGroupVelocidade"
-        android:layout_width="332dp"
-        android:layout_height="113dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerMap"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.455"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerFormat"
-        app:layout_constraintVertical_bias="0.58">
-
-        <RadioButton
-            android:id="@+id/radioKm"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Km/h" />
+            android:text="@string/msgFormatoCordenadas"
+            android:textSize="60px"
+            app:layout_constraintBottom_toTopOf="@+id/spinnerFormat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintVertical_chainStyle="packed" />
 
-        <RadioButton
-            android:id="@+id/radioMph"
-            android:layout_width="75dp"
-            android:layout_height="49dp"
-            android:text="Mph" />
-    </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroupVelocidade"
+            android:layout_width="344dp"
+            android:layout_height="166dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.522"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerFormat">
 
-    <RadioGroup
-        android:id="@+id/radioGroupTipo"
-        android:layout_width="323dp"
-        android:layout_height="90dp"
-        app:layout_constraintBottom_toTopOf="@+id/infoTrafego"
-        app:layout_constraintEnd_toEndOf="@+id/textView4"
-        app:layout_constraintHorizontal_bias="0.013"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMap"
-        app:layout_constraintVertical_bias="0.795">
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/msgUnidadeVelocidade"
+                android:textSize="60px" />
 
-        <RadioButton
-            android:id="@+id/radioVetorial"
+            <RadioButton
+                android:id="@+id/radioKm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Km/h" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/labelKm"
+                android:textSize="35px" />
+
+            <RadioButton
+                android:id="@+id/radioMph"
+                android:layout_width="75dp"
+                android:layout_height="49dp"
+                android:text="Mph" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="139dp"
+                android:layout_height="20dp"
+                android:text="@string/labelMph"
+                android:textSize="35px"
+                tools:layout_editor_absoluteX="-35dp"
+                tools:layout_editor_absoluteY="515dp" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/labelVetorial" />
+            android:text="@string/msgOrientacaoMapa"
+            android:textSize="60px"
+            app:layout_constraintBottom_toTopOf="@id/spinnerMap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.137"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupVelocidade" />
 
-        <RadioButton
-            android:id="@+id/radioSatelite"
+        <Switch
+            android:id="@+id/infoTrafego"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/labelSatelite" />
+            android:layout_marginTop="10dp"
+            android:text="@string/msgInfoTrafego"
+            android:textSize="60px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.216"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/radioGroupTipo" />
 
-    </RadioGroup>
+        <RadioGroup
+            android:id="@+id/radioGroupTipo"
+            android:layout_width="354dp"
+            android:layout_height="133dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toTopOf="@+id/infoTrafego"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.649"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerMap">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/msgTipoMapa"
+                android:textSize="60px" />
+
+            <RadioButton
+                android:id="@+id/radioVetorial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/labelVetorial" />
+
+            <RadioButton
+                android:id="@+id/radioSatelite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/labelSatelite" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonConfigVoltar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labelInicio"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoTrafego"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintVertical_bias="0.17" />
+
+        <Button
+            android:id="@+id/buttonConfigSalvar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labelSalvar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.427"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/infoTrafego"
+            app:layout_constraintVertical_bias="0.17"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"/>
+
+        <Button
+            android:id="@+id/buttonConfigNavegacao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/labelNavegacao"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.887"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/infoTrafego"
+            app:layout_constraintVertical_bias="0.17"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerMap"
+            android:layout_width="305dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintBottom_toTopOf="@id/radioGroupTipo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.32"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView3" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>
