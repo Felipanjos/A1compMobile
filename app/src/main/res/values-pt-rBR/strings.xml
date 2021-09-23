@@ -6,7 +6,7 @@
     <string name="labelInicio">Início</string>
     <string name="labelSair">Sair</string>
     <string name="labelVoltar">Voltar</string>
-    <string name="msgFormatoCordenadas">Formato das coodenadas geográficas</string>
+    <string name="msgFormatoCordenadas">Formato das coodenadas</string>
     <string name="msgUnidadeVelocidade">Unidade da velocidade</string>
     <string name="msgOrientacaoMapa">Orientação do mapa</string>
     <string name="msgTipoMapa">Tipo do mapa</string>
@@ -24,9 +24,9 @@
     <string name="labelNavegacao">Navegação</string>
     <string name="labelVetorial">Vetorial</string>
     <string name="labelSatelite">Imagem de satélite</string>
-    <string name="labelMap1">Nenhuma (você escolhe manualmente a orientação do mapa)</string>
-    <string name="labelMap2">Norte para cima (norte do mapa alinhado com o topo do dispositivo)</string>
-    <string name="labelMap3">Curso para cima (topo do mapa alinhado com o deslocamento)</string>
+    <string name="labelMap1">Nenhuma (escolha manualmente)</string>
+    <string name="labelMap2">Norte (alinhamento no topo do dispositivo)</string>
+    <string name="labelMap3">Curso (orientado com o deslocamento)</string>
     <string name="labelSalvar">Salvar</string>
     <string name="msgSalvar">Configurações salvas</string>
     <string name="dev3">Matheus Rodrigues de Andrade</string>
@@ -44,4 +44,5 @@
     <string name="labelRadioMph">Mph</string>
     <string name="labelRadioVetorial">Vetorial</string>
     <string name="labelRadioSatelite">Satélite</string>
+    <string name="labelGnss">GNSS</string>
 </resources>

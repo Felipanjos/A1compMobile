@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="@string/msgWIP"
         android:textColor="@color/white"
-        android:textSize="50px"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,19 +29,18 @@
         android:id="@+id/textView20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="284dp"
-        android:layout_marginBottom="421dp"
         android:foregroundGravity="center"
         android:gravity="center"
         android:text="@string/msgWIP2"
         android:textColor="#0FD629"
-        android:textSize="50px"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView14"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/buttonNavegacaoConfig"
@@ -49,13 +48,13 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button"
         android:text="@string/labelConfig"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.713"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.528"
-        android:textAllCaps="false"/>
+        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintStart_toEndOf="@id/buttonNavegacaoInicio"
+        app:layout_constraintTop_toBottomOf="@id/textView14"
+        app:layout_constraintVertical_bias="0.19" />
 
     <Button
         android:id="@+id/buttonNavegacaoInicio"
@@ -63,13 +62,14 @@
         android:layout_height="wrap_content"
         android:background="@drawable/button"
         android:text="@string/labelInicio"
+        android:textAllCaps="false"
         app:backgroundTint="@color/btnColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.331"
+        app:layout_constraintHorizontal_bias="0.297"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.528"
-        android:textAllCaps="false"/>
+        app:layout_constraintTop_toBottomOf="@id/textView14"
+        app:layout_constraintVertical_bias="0.19"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,7 +30,7 @@
         android:gravity="center"
         android:text="@string/msgWIP"
         android:textColor="@color/white"
-        android:textSize="50px"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +47,12 @@
         android:gravity="center"
         android:text="@string/msgWIP2"
         android:textColor="#0FD629"
-        android:textSize="50px"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintTop_toBottomOf="@id/textView5"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,4 +45,5 @@
     <string name="labelRadioMph">Mph</string>
     <string name="labelRadioVetorial">Vectorial</string>
     <string name="labelRadioSatelite">Satellite</string>
+    <string name="labelGnss">GNSS</string>
 </resources>
