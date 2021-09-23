@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/button.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/custom_button.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.371875" />
+        <entry key="app/src/main/res/drawable/my_button.xml" value="0.371875" />
         <entry key="app/src/main/res/layout/activity_config.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_credit.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_gnss.xml" value="0.35572916666666665" />
