@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(viewCredit);
                 break;
             case R.id.buttonFechar:
-                finish();
+                this.finishAffinity();
                 break;
         }
     }

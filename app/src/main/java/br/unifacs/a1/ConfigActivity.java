@@ -2,6 +2,7 @@
 package br.unifacs.a1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +41,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.buttonConfigSalvar:
                 saveElements();
                 break;
-            case R.id.buttonConfigVoltar:
+            case R.id.buttonConfigInicio:
                 startMain();
                 break;
         }
@@ -95,11 +96,11 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         return 0;
     }
 
-    public void setSwitch(Switch interruptor) {
+    public void setSwitch(SwitchCompat interruptor) {
         interruptor.setChecked((dados.getBoolean("Mostrar trafego", false)));
     }
 
-    public void saveSwitch(Switch interruptor) {
+    public void saveSwitch(SwitchCompat interruptor) {
 
         editorDados = dados.edit();
         if (interruptor.isChecked()) {
@@ -137,7 +138,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
     public void operacao(String opcao) {
 
         Map<String, Button> buttonMap = new HashMap<String, Button>();
-            buttonMap.put("buttonConfigVoltar", (Button) findViewById(R.id.buttonConfigVoltar));
+            buttonMap.put("buttonConfigVoltar", (Button) findViewById(R.id.buttonConfigInicio));
             buttonMap.put("buttonConfigNavegacao", (Button) findViewById(R.id.buttonConfigNavegacao));
             buttonMap.put("buttonConfigSalvar", (Button) findViewById(R.id.buttonConfigSalvar));
 
@@ -151,7 +152,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
             spinnerMap.put("spinnerFormato", (Spinner) findViewById(R.id.spinnerFormat));
             spinnerMap.put("spinnerOrientacao", (Spinner) findViewById(R.id.spinnerMap));
 
-        Switch infoTrafego = (Switch) findViewById(R.id.infoTrafego);
+        SwitchCompat infoTrafego = (SwitchCompat) findViewById(R.id.infoTrafego);
 
         switch (opcao) {
             case "setButton":

@@ -11,9 +11,10 @@
     <string name="msgTipoMapa"><b>Map type</b></string>
     <string name="msgInfoTrafego"><b>Traffic information</b></string>
     <string name="labelHistorico">History</string>
-    <string name="msgWIP">Page under construction.</string>
-    <string name="labelDev">Developed by:</string>
-    <string name="labelAppInfo">Application info:</string>
+    <string name="msgWIP">Page under</string>
+    <string name="msgWIP2">construction.</string>
+    <string name="labelDev"><b> Developers </b></string>
+    <string name="labelAppInfo"><b> Application details </b></string>
     <string name="labelKm">(Kilometers per hour)</string>
     <string name="labelMph">(Miles per hour)</string>
     <string name="labelGrau1">Decimal Degree</string>
@@ -30,5 +31,18 @@
     <string name="dev1">Felipe Santos dos Anjos</string>
     <string name="dev2">Guilherme Mateus do Carmo</string>
     <string name="dev3">Matheus Rodrigues de Andrade</string>
-    <string name="appInfo">Developed in Java, using Android Studio, app targeting Android API 19, App version 0.7</string>
+    <string name="appInfo">Developed in Java, using Android Studio, app targeting Android API 19, App version 2.0</string>
+    <color name="background1">#1D1A1A</color>
+    <color name="btnColor">#0FD629</color>
+    <string name="labelH4">Where are we going today? 🚗</string>
+    <string name="labelH1">Hello,</string>
+    <string name="labelH2">So-and-so</string>
+    <string name="labelH3">Good to see you again.</string>
+    <string name="labelLanguage"><b> Developed with Java </b></string>
+    <string name="labelIDE"><b> IDE Android Studio </b></string>
+    <string name="labelVersion"><b> App version: 1.2 </b></string>
+    <string name="labelRadioKm">Km/h</string>
+    <string name="labelRadioMph">Mph</string>
+    <string name="labelRadioVetorial">Vectorial</string>
+    <string name="labelRadioSatelite">Satellite</string>
 </resources>

@@ -12,9 +12,10 @@
     <string name="msgTipoMapa">Tipo do mapa</string>
     <string name="msgInfoTrafego">Informações do tráfego</string>
     <string name="labelHistorico">Histórico</string>
-    <string name="msgWIP">Página em construção</string>
-    <string name="labelDev">Desenvolvido por:</string>
-    <string name="labelAppInfo">Informações sobre a aplicação:</string>
+    <string name="msgWIP">Página em</string>
+    <string name="msgWIP2">construção.</string>
+    <string name="labelDev"><b> Desenvolvedores </b></string>
+    <string name="labelAppInfo"><b> Detalhes do aplicativo </b></string>
     <string name="labelKm">(Quilômetros por hora)</string>
     <string name="labelMph">(Milhas por hora)</string>
     <string name="labelGrau1">Grau decimal</string>
@@ -31,5 +32,16 @@
     <string name="dev3">Matheus Rodrigues de Andrade</string>
     <string name="dev2">Guilherme Mateus do Carmo</string>
     <string name="dev1">Felipe Santos dos Anjos</string>
-    <string name="appInfo">Desenvolvido em Java, usando Android Studio. Aplicativo designado para Android API 19. Versão do app: 0.7</string>
+    <string name="appInfo">Desenvolvido em Java, usando Android Studio. Aplicativo designado para Android API 19. Versão do app: 2.0</string>
+    <string name="labelH4">Para onde vamos hoje? 🚗</string>
+    <string name="labelH1">Olá,</string>
+    <string name="labelH2">Fulano</string>
+    <string name="labelH3">Que bom vê-lo novamente.</string>
+    <string name="labelLanguage"><b> Desenvolvido em Java </b></string>
+    <string name="labelIDE"><b> IDE Android Studio </b></string>
+    <string name="labelVersion"><b> Versão do app: 1.2 </b></string>
+    <string name="labelRadioKm">Km/h</string>
+    <string name="labelRadioMph">Mph</string>
+    <string name="labelRadioVetorial">Vetorial</string>
+    <string name="labelRadioSatelite">Satélite</string>
 </resources>

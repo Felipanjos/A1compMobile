@@ -5,31 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ConfigActivity"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:background="@color/background1"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <Spinner
             android:id="@+id/spinnerFormat"
             android:layout_width="305dp"
             android:layout_height="55dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown"
             app:layout_constraintBottom_toTopOf="@+id/radioGroupVelocidade"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.32"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/msgFormatoCordenadas"
-            android:textSize="60px"
+            android:textColor="@color/white"
+            android:textSize="23.5sp"
             app:layout_constraintBottom_toTopOf="@+id/spinnerFormat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.384"
@@ -43,7 +48,7 @@
             android:layout_width="344dp"
             android:layout_height="166dp"
             android:layout_marginVertical="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="25dp"
             android:layout_marginBottom="60dp"
             app:layout_constraintBottom_toTopOf="@+id/textView3"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,33 +61,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/msgUnidadeVelocidade"
-                android:textSize="60px" />
+                android:textColor="@color/white"
+                android:textSize="23.5sp" />
 
             <RadioButton
                 android:id="@+id/radioKm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Km/h" />
+                android:text="@string/labelRadioKm"
+                android:textColor="@color/white"
+                android:textSize="16.5sp" />
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/labelKm"
-                android:textSize="35px" />
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
             <RadioButton
                 android:id="@+id/radioMph"
                 android:layout_width="75dp"
                 android:layout_height="49dp"
-                android:text="Mph" />
+                android:text="@string/labelRadioMph"
+                android:textColor="@color/white"
+                android:textSize="16.5sp" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="139dp"
                 android:layout_height="20dp"
                 android:text="@string/labelMph"
-                android:textSize="35px"
+                android:textColor="@color/white"
+                android:textSize="14sp"
                 tools:layout_editor_absoluteX="-35dp"
                 tools:layout_editor_absoluteY="515dp" />
         </RadioGroup>
@@ -91,21 +103,25 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:text="@string/msgOrientacaoMapa"
-            android:textSize="60px"
+            android:textColor="@color/white"
+            android:textSize="23.5sp"
             app:layout_constraintBottom_toTopOf="@id/spinnerMap"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.137"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/radioGroupVelocidade" />
 
-        <Switch
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/infoTrafego"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
+            android:minHeight="48dp"
             android:text="@string/msgInfoTrafego"
-            android:textSize="60px"
+            android:textColor="@color/white"
+            android:textSize="23.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.216"
@@ -116,7 +132,7 @@
             android:id="@+id/radioGroupTipo"
             android:layout_width="354dp"
             android:layout_height="133dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/infoTrafego"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.649"
@@ -128,63 +144,77 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/msgTipoMapa"
-                android:textSize="60px" />
+                android:textColor="@color/white"
+                android:textSize="23.5sp" />
 
             <RadioButton
                 android:id="@+id/radioVetorial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/labelVetorial" />
+                android:text="@string/labelRadioVetorial"
+                android:textColor="@color/white"
+                android:textSize="16.5sp" />
 
             <RadioButton
                 android:id="@+id/radioSatelite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/labelSatelite" />
+                android:text="@string/labelRadioSatelite"
+                android:textColor="@color/white"
+                android:textSize="16.5sp" />
 
         </RadioGroup>
 
         <Button
-            android:id="@+id/buttonConfigVoltar"
+            android:id="@+id/buttonConfigInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button"
             android:text="@string/labelInicio"
+            android:textAllCaps="false"
+            android:textSize="16.5sp"
+            app:backgroundTint="@color/btnColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintHorizontal_bias="0.114"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/infoTrafego"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            app:layout_constraintVertical_bias="0.17" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/buttonConfigSalvar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button"
             android:text="@string/labelSalvar"
+            android:textAllCaps="false"
+            android:textSize="16.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.427"
+            app:layout_constraintHorizontal_bias="0.888"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/infoTrafego"
-            app:layout_constraintVertical_bias="0.17"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/buttonConfigNavegacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button"
             android:text="@string/labelNavegacao"
+            android:textAllCaps="false"
+            android:textSize="16.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.887"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/infoTrafego"
-            app:layout_constraintVertical_bias="0.17"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <Spinner
             android:id="@+id/spinnerMap"
@@ -197,7 +227,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.32"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView3" />
+            app:layout_constraintTop_toBottomOf="@id/textView3"
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
