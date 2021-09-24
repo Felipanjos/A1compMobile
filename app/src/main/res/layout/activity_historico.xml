@@ -40,11 +40,12 @@
         app:layout_constraintTop_toBottomOf="@id/textView21"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonHistoricoVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button"
+        android:textColor="@color/white"
         android:text="@string/labelVoltar"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"

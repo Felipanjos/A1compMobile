@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Cartogramaps</string>
-    <string name="labelCreditos">Créditos</string>
-    <string name="labelConfig">Configurações</string>
+    <string name="labelCreditos">Créditos 👨🏻‍💻</string>
+    <string name="labelConfig">Configurações ⚙️</string>
     <string name="labelInicio">Início</string>
     <string name="labelSair">Sair</string>
     <string name="labelVoltar">Voltar</string>
@@ -11,7 +11,7 @@
     <string name="msgOrientacaoMapa">Orientação do mapa</string>
     <string name="msgTipoMapa">Tipo do mapa</string>
     <string name="msgInfoTrafego">Informações do tráfego</string>
-    <string name="labelHistorico">Histórico</string>
+    <string name="labelHistorico">Histórico 🕙</string>
     <string name="msgWIP">Página em</string>
     <string name="msgWIP2">construção.</string>
     <string name="labelDev"><b> Desenvolvedores </b></string>
@@ -21,8 +21,7 @@
     <string name="labelGrau1">Grau decimal</string>
     <string name="labelGrau2">Grau-Minuto decimal</string>
     <string name="labelGrau3">Grau-Minuto-Segundo decimal</string>
-    <string name="labelNavegacao">Navegação</string>
-    <string name="labelVetorial">Vetorial</string>
+    <string name="labelNavegacao">Navegação 🗺️</string>
     <string name="labelSatelite">Imagem de satélite</string>
     <string name="labelMap1">Nenhuma (escolha manualmente)</string>
     <string name="labelMap2">Norte (alinhamento no topo do dispositivo)</string>
@@ -40,9 +39,7 @@
     <string name="labelLanguage"><b> Desenvolvido em Java </b></string>
     <string name="labelIDE"><b> IDE Android Studio </b></string>
     <string name="labelVersion"><b> Versão do app: 1.2 </b></string>
-    <string name="labelRadioKm">Km/h</string>
-    <string name="labelRadioMph">Mph</string>
     <string name="labelRadioVetorial">Vetorial</string>
     <string name="labelRadioSatelite">Satélite</string>
-    <string name="labelGnss">GNSS</string>
+    <string name="labelVetorial">Vetorial</string>
 </resources>

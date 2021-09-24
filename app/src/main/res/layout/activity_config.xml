@@ -165,18 +165,17 @@
 
         </RadioGroup>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonConfigInicio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/button"
+            android:background="@drawable/button_destaque"
             android:text="@string/labelInicio"
             android:textAllCaps="false"
             android:textSize="16.5sp"
-            android:textStyle=""
-            app:backgroundTint="@color/btnColor"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.114"
@@ -185,7 +184,7 @@
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="TextContrastCheck,TextContrastCheck" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonConfigSalvar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -195,25 +194,30 @@
             android:text="@string/labelSalvar"
             android:textAllCaps="false"
             android:textSize="16.5sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.888"
+            app:layout_constraintHorizontal_bias="0.913"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/infoTrafego"
             app:layout_constraintVertical_bias="0.0" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonConfigNavegacao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="152dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="10dp"
             android:layout_marginBottom="20dp"
             android:background="@drawable/button"
             android:text="@string/labelNavegacao"
             android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="16.5sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.519"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/infoTrafego"
             app:layout_constraintVertical_bias="0.0" />

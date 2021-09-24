@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cartogramaps</string>
-    <string name="labelCreditos">Credits</string>
-    <string name="labelConfig">Settings</string>
+    <string name="labelCreditos">Credits 👨🏻‍💻</string>
+    <string name="labelConfig">Settings ⚙️</string>
     <string name="labelInicio">Main</string>
     <string name="labelSair">Exit</string>
     <string name="labelVoltar">Back</string>
@@ -10,7 +10,7 @@
     <string name="msgOrientacaoMapa"><b>Map orientation</b></string>
     <string name="msgTipoMapa"><b>Map type</b></string>
     <string name="msgInfoTrafego"><b>Traffic information</b></string>
-    <string name="labelHistorico">History</string>
+    <string name="labelHistorico">History 🕙</string>
     <string name="msgWIP">Page under</string>
     <string name="msgWIP2">construction.</string>
     <string name="labelDev"><b> Developers </b></string>
@@ -20,8 +20,8 @@
     <string name="labelGrau1">Decimal Degree</string>
     <string name="labelGrau2">Degrees Decimal Minutes</string>
     <string name="labelGrau3">Degrees Minutes Seconds</string>
-    <string name="labelNavegacao">Navigation</string>
-    <string name="labelVetorial">Vetorial</string>
+    <string name="labelNavegacao">Navigation 🗺️</string>
+    <string name="labelVetorial">Vectorial</string>
     <string name="labelSatelite">Satellite image</string>
     <string name="labelMap1">None (you manually choose map orientation)</string>
     <string name="labelMap2">North up (map north aligned with device top)</string>
@@ -41,9 +41,9 @@
     <string name="labelLanguage"><b> Developed with Java </b></string>
     <string name="labelIDE"><b> IDE Android Studio </b></string>
     <string name="labelVersion"><b> App version: 1.2 </b></string>
-    <string name="labelRadioKm">Km/h</string>
-    <string name="labelRadioMph">Mph</string>
+    <string name="labelRadioKm" translatable="false">Km/h</string>
+    <string name="labelRadioMph" translatable="false">Mph</string>
     <string name="labelRadioVetorial">Vectorial</string>
     <string name="labelRadioSatelite">Satellite</string>
-    <string name="labelGnss">GNSS</string>
+    <string name="labelGnss" translatable="false">GNSS  🛰️</string>
 </resources>

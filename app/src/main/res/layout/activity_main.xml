@@ -14,20 +14,17 @@
         android:background="@color/background1"
         tools:context=".MainActivity">
 
-
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonNavegacao"
             android:layout_width="225dp"
             android:layout_height="47.5dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:layout_weight="1.0"
-            android:background="@drawable/button"
+            android:background="@drawable/button_destaque"
             android:text="@string/labelNavegacao"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
-            app:backgroundTint="#2ED52E"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,17 +32,16 @@
             app:layout_constraintVertical_bias="0.26"
             tools:ignore="TextContrastCheck" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonConfig"
             android:layout_width="225dp"
             android:layout_height="47.5dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:layout_weight="1.0"
             android:background="@drawable/button"
             android:text="@string/labelConfig"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,16 +49,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.366" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonGnss"
             android:layout_width="225dp"
             android:layout_height="47.5dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:layout_weight="1.0"
             android:background="@drawable/button"
             android:text="@string/labelGnss"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,17 +65,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.475" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonHistorico"
             android:layout_width="225dp"
             android:layout_height="47.5dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:layout_weight="1.0"
             android:background="@drawable/button"
             android:text="@string/labelHistorico"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,17 +82,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.581" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonCredit"
             android:layout_width="225dp"
             android:layout_height="47.5dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:layout_weight="1.0"
             android:background="@drawable/button"
             android:text="@string/labelCreditos"
             android:textAllCaps="false"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,16 +99,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.686" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonFechar"
             android:layout_width="251dp"
             android:layout_height="60dp"
-            android:background="@drawable/button"
+            android:background="@drawable/button_destaque"
             android:text="@string/labelSair"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="25sp"
-            app:backgroundTint="#2ED52E"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -126,20 +118,18 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="141dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginEnd="224dp"
-            android:layout_marginBottom="651dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="20dp"
             android:text="@string/labelH1"
             android:textColor="@color/white"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.875"
+            app:layout_constraintBottom_toTopOf="@id/textView18"
+            app:layout_constraintEnd_toStartOf="@id/textView17"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_bias="0.037"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -148,7 +138,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="197dp"
             android:layout_marginTop="45dp"
-            android:layout_marginEnd="133dp"
             android:layout_marginBottom="651dp"
             android:text="@string/labelH2"
             android:textColor="#0FD629"
@@ -156,7 +145,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.031"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
