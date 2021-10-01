@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         switch (view.getId()) {
             case R.id.buttonNavegacao:
-                Intent viewNavegacao = new Intent(this, NavegacaoActivity.class);
+                Intent viewNavegacao = new Intent(this, MapsActivity.class);
                 startActivity(viewNavegacao);
                 break;
             case R.id.buttonConfig:

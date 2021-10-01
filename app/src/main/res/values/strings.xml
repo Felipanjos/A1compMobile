@@ -46,4 +46,6 @@
     <string name="labelRadioVetorial">Vectorial</string>
     <string name="labelRadioSatelite">Satellite</string>
     <string name="labelGnss" translatable="false">GNSS  🛰️</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="labelMarker">Marker in Salvador</string>
 </resources>

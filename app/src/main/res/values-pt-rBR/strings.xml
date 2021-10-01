@@ -42,4 +42,5 @@
     <string name="labelRadioVetorial">Vetorial</string>
     <string name="labelRadioSatelite">Satélite</string>
     <string name="labelVetorial">Vetorial</string>
+    <string name="labelMarker">Marcador em Salvador</string>
 </resources>
