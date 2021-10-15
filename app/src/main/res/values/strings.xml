@@ -48,4 +48,7 @@
     <string name="labelGnss" translatable="false">GNSS  🛰️</string>
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
     <string name="labelMarker">Marker in Salvador</string>
+    <string name="msgLocPermissionDenied">Permission denied to show location.</string>
+    <string name="msgLocButtonClicked">Location button clicked</string>
+    <string name="msgLocAtual">Current location (Lat, Long, Alt): \\n</string>
 </resources>

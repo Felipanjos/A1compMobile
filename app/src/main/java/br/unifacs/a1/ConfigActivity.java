@@ -194,7 +194,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void startMap() {
-        Intent viewMapa = new Intent(this, NavegacaoActivity.class);
+        Intent viewMapa = new Intent(this, MapsActivity.class);
         startActivity(viewMapa);
     }
 

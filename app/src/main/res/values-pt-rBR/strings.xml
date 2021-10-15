@@ -43,4 +43,7 @@
     <string name="labelRadioSatelite">Satélite</string>
     <string name="labelVetorial">Vetorial</string>
     <string name="labelMarker">Marcador em Salvador</string>
+    <string name="msgLocPermissionDenied">Permissão negada para mostrar localização</string>
+    <string name="msgLocButtonClicked">Botão de localização apertado.</string>
+    <string name="msgLocAtual">Localização atual (Lat, Long, Alt): \\n</string>
 </resources>
