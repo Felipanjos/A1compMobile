@@ -51,9 +51,9 @@
     <string name="labelLocSpeed">Velocidade (m/s) =</string>
     <string name="labelLocLat">"Latitude (graus) = "</string>
     <string name="labelLocCourse">Rumo (graus) =</string>
-    <string name="labelLoc">Dados da localização atual \\n</string>
+    <string name="labelLoc">Dados da localização atual</string>
     <string name="labelLocUnavailable">Indisponível</string>
-    <string name="labelLastLoc">Dados da última localização \\n</string>
+    <string name="labelLastLoc">Dados da última localização</string>
     <string name="labelLocAccuracy">Acurácia (metros) =</string>
     <string name="labelUpdateUnavailable">Informação de atualização indisponível</string>
 </resources>
