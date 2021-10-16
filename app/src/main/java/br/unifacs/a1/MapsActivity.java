@@ -43,8 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -81,8 +80,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //trafego
         if (dados.getBoolean("Mostrar trafego", true))
             mMap.setTrafficEnabled(true);
-        else
-            mMap.setTrafficEnabled(false);
 
         mMap.setIndoorEnabled(true);
         mMap.setBuildingsEnabled(true);
@@ -127,9 +124,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void setUI() {
         UiSettings mapUI = mMap.getUiSettings();
-        mapUI.setAllGesturesEnabled(true);
-        mapUI.setCompassEnabled(true);
         mapUI.setZoomControlsEnabled(true);
+
+        String mapNone = getResources().getString(R.string.labelMap1),
+                mapNorth = getResources().getString(R.string.labelMap2),
+                mapCourse = getResources().getString(R.string.labelMap3);
+
+        if (dados.getString("Orientacao", mapNone).equals(mapNone)) {
+            mapUI.setAllGesturesEnabled(true);
+            mapUI.setCompassEnabled(true);
+        }
+        else if (dados.getString("Orientacao", mapNorth).equals(mapNorth)) {
+            mapUI.setZoomGesturesEnabled(true);
+            mapUI.setRotateGesturesEnabled(false);
+            mapUI.setCompassEnabled(false);
+        }
+        else if (dados.getString("Orientacao", mapCourse).equals(mapCourse)) {
+
+        }
     }
 
     private void setElements() {

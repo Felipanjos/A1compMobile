@@ -51,4 +51,14 @@
     <string name="msgLocPermissionDenied">Permission denied to show location.</string>
     <string name="msgLocButtonClicked">Location button clicked</string>
     <string name="msgLocAtual">Current location (Lat, Long, Alt): \\n</string>
+    <string name="msgLastLocationDenied">Missing permission to show your last location.</string>
+    <string name="labelLocLong">Longitude (degrees) =</string>
+    <string name="labelLocSpeed">Speed (m/s) =</string>
+    <string name="labelLocLat">Latitude (degrees) =</string>
+    <string name="labelLocCourse">Course (degrees) =</string>
+    <string name="labelLoc">Current location data \\n</string>
+    <string name="labelLocUnavailable">Unavailable</string>
+    <string name="labelLastLoc">Last location data \\n</string>
+    <string name="labelLocAccuracy">"Accuracy (meters) = "</string>
+    <string name="labelUpdateUnavailable">Update data unavailable</string>
 </resources>

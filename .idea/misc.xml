@@ -3,6 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_config.xml" value="0.38697916666666665" />
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_credit.xml" value="0.38697916666666665" />
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_fused_location.xml" value="0.38697916666666665" />
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_fused_location_activirty.xml" value="0.38697916666666665" />
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_fused_location_provider_client.xml" value="0.38697916666666665" />
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_gnss.xml" value="0.38697916666666665" />
+        <entry key="..\:/GitHub/A1compMobile/app/src/main/res/layout/activity_maps.xml" value="0.38697916666666665" />
         <entry key="app/src/main/res/drawable-anydpi/ic_config.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.371875" />
         <entry key="app/src/main/res/drawable/button.xml" value="0.371875" />
