@@ -61,4 +61,8 @@
     <string name="labelLastLoc">Last location data</string>
     <string name="labelLocAccuracy">"Accuracy (meters) = "</string>
     <string name="labelUpdateUnavailable">Update data unavailable</string>
+    <string name="labelLastPosition">Last position</string>
+    <string name="labelLocMarker">Current location</string>
+    <string name="msgNoGPS">Location disabled</string>
+    <string name="msgNoNet">Network unavailable</string>
 </resources>

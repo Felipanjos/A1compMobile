@@ -9,63 +9,219 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import br.unifacs.a1.databinding.ActivityMapsBinding;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
-    private GoogleMap mMap;
-    private ActivityMapsBinding binding;
-    private SharedPreferences dados;
     private static final int REQUEST_LOCATION = 1;
-    private FusedLocationActivity place;
-    SharedPreferences.Editor editor;
+    private static final int REQUEST_LAST_LOCATION = 1;
+    private static final int REQUEST_LOCATION_UPDATES = 2;
 
+    boolean gps_enabled = false;
+    boolean flagUpdate = false;
+
+    private GoogleMap mMap;
+    private Marker currentPos, lastPos;
+    private final LatLng ATUAL = new LatLng(-12.937620, -38.413260);
+    private final LatLng ANTERIOR = new LatLng(-12.977620, -38.513260);
+    private ActivityMapsBinding binding;
+
+    private SharedPreferences dados;
+
+    private FusedLocationProviderClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dados = getSharedPreferences("Config", Context.MODE_PRIVATE);
 
+        LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        trataGPS(lm);
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
+
+        // recebe última localização
+        atualizaLocationUpdatesView(null);
+        atualizaLastLocationView(null);
+        startLocationUpdates();
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        // Add a marker in Sydney and move the camera
-        LatLng salvador = new LatLng(-12.9704, -38.5124);
-        mMap.addMarker(new MarkerOptions().position(salvador).title(getResources().getString(R.string.labelMarker)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(salvador));
+
+        currentPos = mMap.addMarker(new MarkerOptions()
+                .position(ATUAL)
+                .title(getResources().getString(R.string.labelLocMarker))
+                .visible(false));
+
+        lastPos = mMap.addMarker(new MarkerOptions()
+                .position(ANTERIOR)
+                .title(getResources().getString(R.string.labelLastPosition))
+                .visible(false));
+
+        // TODO: Adiciona um marcador em Salvador (case 1)
+        if (!gps_enabled)
+            mMap.addMarker(new MarkerOptions().position(new LatLng(-12.9704, -38.5124)).title(getResources().getString(R.string.labelMarker)));
+
+        //Configura o mapa e seus elementos, baseado na tela de configurações
         setElements();
+    }
+
+    public boolean onMyLocationButtonClick() {
+        Toast.makeText(this, getResources().getString(R.string.msgLocButtonClicked), Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    public void onMyLocationClick(@NonNull Location location) {
+        Toast.makeText(this,
+                getResources().getString(R.string.msgLocAtual) + "(" + location.getLatitude() + "," + location.getLongitude() + "," + location.getAltitude() + ")",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_LAST_LOCATION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                lastLocation();
+            }
+        } else {
+            Toast.makeText(this, getResources().getString(R.string.msgLocPermissionDenied), Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        if (requestCode == REQUEST_LOCATION_UPDATES) {
+            if(grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // O usuário acabou de dar a permissão
+                startLocationUpdates();
+            }
+            else {
+                // O usuário não deu a permissão solicitada
+                Toast.makeText(this, getResources().getString(R.string.msgLocPermissionDenied), Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+    }
+
+    //Fused location
+    private void startLocationUpdates() {
+        // Se a app já possui a permissão, ativa a calamada de localização
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+            flagUpdate = true;
+            // A permissão foi dada
+            // Cria o cliente FusedLocation
+            client = LocationServices.getFusedLocationProviderClient(this);
+
+            // Configura solicitações de localização
+            LocationRequest request = LocationRequest.create();
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            request.setInterval(5 * 5000);
+            request.setFastestInterval(1000);
+            // Programa o evento a ser chamado em intervalo regulares de tempo
+            LocationCallback callback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    super.onLocationResult(locationResult);
+                    Location location = locationResult.getLastLocation();
+                    atualizaLocationUpdatesView(location);
+                    // TODO: marker da posição atual (case 3)
+                    if (gps_enabled){
+                        currentPos.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                        currentPos.setVisible(true);
+                    }
+                }
+            };
+            client.requestLocationUpdates(request, callback,null);
+        } else {
+            // Solicite a permissão
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_UPDATES);
+        }
+    }
+
+    private void atualizaLocationUpdatesView(Location location) {
+        TextView textView = findViewById(R.id.txtStatusBar);
+        String texto = getResources().getString(R.string.labelLoc) + "\n";
+
+        if (location != null) {
+            texto += getResources().getString(R.string.labelLocLat) + location.getLatitude() + "\n"
+                    + getResources().getString(R.string.labelLocLong) + location.getLongitude() + "\n"
+                    + getResources().getString(R.string.labelLocSpeed) + location.getSpeed() + "\n"
+                    + getResources().getString(R.string.labelLocCourse) + location.getBearing() + "\n"
+                    + getResources().getString(R.string.labelLocAccuracy) + location.getAccuracy();
+        }
+        else {
+            texto += getResources().getString(R.string.labelUpdateUnavailable);
+        }
+        textView.setText(texto);
+    }
+
+    private void atualizaLastLocationView(Location location) {
+        TextView textViewLast = findViewById(R.id.txtLastStatusBar);
+        String texto = getResources().getString(R.string.labelLastLoc) + "\n";
+        if (location != null) {
+            texto += getResources().getString(R.string.labelLocLat) + location.getLatitude() + "\n"
+                    + getResources().getString(R.string.labelLocLong) + location.getLongitude() + "\n"
+                    + getResources().getString(R.string.labelLocSpeed) + location.getSpeed() + "\n"
+                    + getResources().getString(R.string.labelLocCourse) + location.getBearing();
+        }
+        else {
+            texto += getResources().getString(R.string.labelLocUnavailable);
+        }
+        textViewLast.setText(texto);
+    }
+
+    private void lastLocation() {
+        // Se a app já possui a permissão, ativa a camada de localização
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // A permissão foi dada
+            client = LocationServices.getFusedLocationProviderClient(this);
+            client.getLastLocation().addOnSuccessListener(this, location -> {
+                atualizaLastLocationView(location);
+                //TODO: adicionar marker da última posição (case 2)
+                if (!flagUpdate) {
+                    lastPos.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                    lastPos.setVisible(true);
+                }
+            });
+        } else {
+            // Solicite a permissão
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LAST_LOCATION);
+        }
+    }
+
+    private void trataGPS(LocationManager lm) {
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {
+            Toast.makeText(this, getResources().getString(R.string.msgNoGPS), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void setMap() {
@@ -96,31 +252,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.setMyLocationEnabled(true);
         } else {
             ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                REQUEST_LOCATION);
-        }
-    }
-
-    public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, getResources().getString(R.string.msgLocButtonClicked), Toast.LENGTH_SHORT).show();
-        return false;
-    }
-
-    public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(this,
-                getResources().getString(R.string.msgLocAtual) + "(" + location.getLatitude() + "," + location.getLongitude() + "," + location.getAltitude() + ")",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                setLocation();
-            }
-        } else {
-            Toast.makeText(this, getResources().getString(R.string.msgLocPermissionDenied), Toast.LENGTH_SHORT).show();
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION);
         }
     }
 
@@ -142,7 +275,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mapUI.setCompassEnabled(false);
         }
         else if (dados.getString("Orientacao", mapCourse).equals(mapCourse)) {
-
+            //TODO: adicionar orientacao de mapa Course up
         }
     }
 

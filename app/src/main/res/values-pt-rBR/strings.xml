@@ -56,4 +56,8 @@
     <string name="labelLastLoc">Dados da última localização</string>
     <string name="labelLocAccuracy">Acurácia (metros) =</string>
     <string name="labelUpdateUnavailable">Informação de atualização indisponível</string>
+    <string name="labelLastPosition">Última posição</string>
+    <string name="labelLocMarker">Localização atual</string>
+    <string name="msgNoGPS">Localização desligada</string>
+    <string name="msgNoNet">Conexão de rede desligada</string>
 </resources>
