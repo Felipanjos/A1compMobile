@@ -13,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -69,9 +68,9 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
         String[] formatos = new String[]{formato1, formato2, formato3},
                 orientacoes = new String[]{orientacao1, orientacao2, orientacao3};
 
-        spinnerFormato.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, formatos));
+        spinnerFormato.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, formatos));
         spinnerFormato.setSelection(findSpinner(spinnerFormato, dados.getString("Formato", formato1)));
-        spinnerOrientacao.setAdapter(new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, orientacoes));
+        spinnerOrientacao.setAdapter(new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, orientacoes));
         spinnerOrientacao.setSelection(findSpinner(spinnerOrientacao, dados.getString("Orientacao", orientacao1)));
     }
 
@@ -103,12 +102,7 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
     public void saveSwitch(SwitchCompat interruptor) {
 
         editorDados = dados.edit();
-        if (interruptor.isChecked()) {
-            editorDados.putBoolean("Mostrar trafego", true);
-        }
-        else {
-            editorDados.putBoolean("Mostrar trafego", false);
-        }
+            editorDados.putBoolean("Mostrar trafego", interruptor.isChecked());
         editorDados.commit();
     }
 
@@ -137,18 +131,18 @@ public class ConfigActivity extends AppCompatActivity implements View.OnClickLis
 
     public void operacao(String opcao) {
 
-        Map<String, Button> buttonMap = new HashMap<String, Button>();
+        Map<String, Button> buttonMap = new HashMap<>();
             buttonMap.put("buttonConfigVoltar", (Button) findViewById(R.id.buttonConfigInicio));
             buttonMap.put("buttonConfigNavegacao", (Button) findViewById(R.id.buttonConfigNavegacao));
             buttonMap.put("buttonConfigSalvar", (Button) findViewById(R.id.buttonConfigSalvar));
 
-        Map<String, RadioButton> radioButtonMap = new HashMap<String, RadioButton>();
+        Map<String, RadioButton> radioButtonMap = new HashMap<>();
             radioButtonMap.put("radioKm", (RadioButton) findViewById(R.id.radioKm));
             radioButtonMap.put("radioMph", (RadioButton) findViewById(R.id.radioMph));
             radioButtonMap.put("radioVetorial", (RadioButton) findViewById(R.id.radioVetorial));
             radioButtonMap.put("radioSatelite", (RadioButton) findViewById(R.id.radioSatelite));
 
-        Map<String, Spinner> spinnerMap = new HashMap<String, Spinner>();
+        Map<String, Spinner> spinnerMap = new HashMap<>();
             spinnerMap.put("spinnerFormato", (Spinner) findViewById(R.id.spinnerFormat));
             spinnerMap.put("spinnerOrientacao", (Spinner) findViewById(R.id.spinnerMap));
 

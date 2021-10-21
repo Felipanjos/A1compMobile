@@ -48,7 +48,7 @@
     <string name="labelGnss" translatable="false">GNSS  🛰️</string>
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
     <string name="labelMarker">Marker in Salvador</string>
-    <string name="msgLocPermissionDenied">Permission denied to show location.</string>
+    <string name="msgLocPermissionDenied">❌ Permission denied to show current location.</string>
     <string name="msgLocButtonClicked">Location button clicked</string>
     <string name="msgLocAtual">Current location (Lat, Long, Alt): \\n</string>
     <string name="msgLastLocationDenied">Missing permission to show your last location.</string>
@@ -61,10 +61,11 @@
     <string name="labelLastLoc">Last location data</string>
     <string name="labelLocAccuracy">"Accuracy (meters) = "</string>
     <string name="labelUpdateUnavailable">Update data unavailable</string>
-    <string name="labelLastPosition">Last position</string>
+    <string name="labelLastPosition">Last known location</string>
     <string name="labelLocMarker">Current location</string>
     <string name="msgNoGPS">Location disabled</string>
     <string name="msgNoNet">Network unavailable</string>
     <string name="labelLocSpeedKm">"Speed (Km/h) = "</string>
     <string name="labelLocSpeedMph">"Speed (Mph) = "</string>
+    <string name="labelLocationUpdates"><b>Location updates</b></string>
 </resources>
