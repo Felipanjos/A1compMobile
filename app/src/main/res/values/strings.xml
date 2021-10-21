@@ -52,10 +52,10 @@
     <string name="msgLocButtonClicked">Location button clicked</string>
     <string name="msgLocAtual">Current location (Lat, Long, Alt): \\n</string>
     <string name="msgLastLocationDenied">Missing permission to show your last location.</string>
-    <string name="labelLocLong">Longitude (degrees) =</string>
-    <string name="labelLocSpeed">Speed (m/s) =</string>
-    <string name="labelLocLat">Latitude (degrees) =</string>
-    <string name="labelLocCourse">Course (degrees) =</string>
+    <string name="labelLocLong">"Longitude (degrees) = "</string>
+    <string name="labelLocSpeed">"Speed (m/s) = "</string>
+    <string name="labelLocLat">"Latitude (degrees) = "</string>
+    <string name="labelLocCourse">"Course (degrees) = "</string>
     <string name="labelLoc">Current location data</string>
     <string name="labelLocUnavailable">Unavailable</string>
     <string name="labelLastLoc">Last location data</string>
@@ -65,4 +65,6 @@
     <string name="labelLocMarker">Current location</string>
     <string name="msgNoGPS">Location disabled</string>
     <string name="msgNoNet">Network unavailable</string>
+    <string name="labelLocSpeedKm">"Speed (Km/h) = "</string>
+    <string name="labelLocSpeedMph">"Speed (Mph) = "</string>
 </resources>

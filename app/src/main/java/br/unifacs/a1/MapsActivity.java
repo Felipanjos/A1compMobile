@@ -19,7 +19,6 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -27,7 +26,6 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import br.unifacs.a1.databinding.ActivityMapsBinding;
 
@@ -44,7 +42,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker currentPos, lastPos;
     private final LatLng ATUAL = new LatLng(-12.937620, -38.413260);
     private final LatLng ANTERIOR = new LatLng(-12.977620, -38.513260);
-    private ActivityMapsBinding binding;
 
     private SharedPreferences dados;
 
@@ -57,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         trataGPS(lm);
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
+        br.unifacs.a1.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -167,14 +164,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void atualizaLocationUpdatesView(Location location) {
         TextView textView = findViewById(R.id.txtStatusBar);
-        String texto = getResources().getString(R.string.labelLoc) + "\n";
+        String texto = getResources().getString(R.string.labelLoc) + "\n",
+                lat = getResources().getString(R.string.labelLocLat),
+                longi = getResources().getString(R.string.labelLocLong),
+                speed = getResources().getString(R.string.labelLocSpeed),
+                bearing = getResources().getString(R.string.labelLocCourse),
+                acc = getResources().getString(R.string.labelLocAccuracy),
+                DDM = getResources().getString(R.string.labelGrau2),
+                DMS = getResources().getString(R.string.labelMap3);
 
         if (location != null) {
-            texto += getResources().getString(R.string.labelLocLat) + location.getLatitude() + "\n"
-                    + getResources().getString(R.string.labelLocLong) + location.getLongitude() + "\n"
-                    + getResources().getString(R.string.labelLocSpeed) + location.getSpeed() + "\n"
-                    + getResources().getString(R.string.labelLocCourse) + location.getBearing() + "\n"
-                    + getResources().getString(R.string.labelLocAccuracy) + location.getAccuracy();
+            //TODO: status bar config
+            if (dados.getBoolean("Km/h", true)) {
+                location.setSpeed(location.getSpeed() * (float) 3.6);
+                speed = getResources().getString(R.string.labelLocSpeedKm);
+            }
+            if (dados.getBoolean("Mph", true)) {
+                location.setSpeed(location.getSpeed() * (float) 2.23694);
+                speed = getResources().getString(R.string.labelLocSpeedMph);
+            }
+
+//            if (dados.getString("Formato", DDM).equals(DDM)) {
+//                String latDDM = converteCoordenadas(location.getLatitude(), "DDM");
+//                String longDDM = converteCoordenadas(location.getLongitude(), "DDM");
+//                if (!latDDM.equals("null")) {
+//                    Toast.makeText(this, "DDM selecionado", Toast.LENGTH_SHORT).show();
+//                }
+//                if (longDDM.equals("null")) {
+//                    Toast.makeText(this, "DDM2 selecionado", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//            if (dados.getString("Formato", DMS).equals(DMS)) {
+//                String latDMS = converteCoordenadas(location.getLatitude(), "DMS");
+//                String longDMS = converteCoordenadas(location.getLongitude(), "DMS");
+//                if (latDMS.equals("null")) {
+//                    Toast.makeText(this, "DMS2 selecionado", Toast.LENGTH_SHORT).show();
+//                }
+//                if (longDMS.equals("null")) {
+//                    Toast.makeText(this, "DMS2 selecionado", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+
+            texto += lat + location.getLatitude() + "\n"
+                    + longi + location.getLongitude() + "\n"
+                    + speed + location.getSpeed() + "\n"
+                    + bearing + location.getBearing() + "\n"
+                    + acc + location.getAccuracy();
         }
         else {
             texto += getResources().getString(R.string.labelUpdateUnavailable);
@@ -283,5 +318,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUI();
         setLocation();
         setMap();
+    }
+
+    private String  converteCoordenadas(double cord, String tipo) {
+
+        String texto = String.valueOf(cord);
+        int separador = texto.indexOf(".");
+        String valor;
+
+        if (cord >= 0)
+            valor = "E";
+        else
+            valor = "S";
+
+        String textoGrau = texto.substring(0, separador),
+                textoMinuto = "0." + texto.substring(separador);
+
+        int grau = Integer.parseInt(textoGrau);
+        double minuto = Double.parseDouble(textoMinuto);
+        minuto *= 60;
+        Toast.makeText(this, "estou aqui 1", Toast.LENGTH_SHORT).show();
+
+        if (tipo.equalsIgnoreCase("DDM")) {
+            Toast.makeText(this, "estou aqui 2", Toast.LENGTH_SHORT).show();
+            return grau + "º " + minuto + "' " + "\" " + valor;
+        }
+
+        if (tipo.equalsIgnoreCase("DMS")) {
+            Toast.makeText(this, "estou aqui 3", Toast.LENGTH_SHORT).show();
+            textoMinuto = String.valueOf(minuto);
+            textoMinuto = textoMinuto.substring(0, separador);
+                String textoSegundo = "0." + textoMinuto.substring(separador);
+
+            double segundo = Double.parseDouble(textoSegundo);
+            segundo *= 60;
+
+            return grau + "º " + textoMinuto + "' " + segundo + "\" " + valor;
+        }
+        else {
+            Toast.makeText(this, "estou aqui 4", Toast.LENGTH_SHORT).show();
+            return "null";
+        }
     }
 }

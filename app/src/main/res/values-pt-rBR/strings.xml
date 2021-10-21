@@ -47,17 +47,19 @@
     <string name="msgLocButtonClicked">Botão de localização apertado.</string>
     <string name="msgLocAtual">Localização atual (Lat, Long, Alt): \\n</string>
     <string name="msgLastLocationDenied">Sem permissão para mostrar sua última localização</string>
-    <string name="labelLocLong">Longitude (graus) =</string>
-    <string name="labelLocSpeed">Velocidade (m/s) =</string>
+    <string name="labelLocLong">"Longitude (graus) = "</string>
+    <string name="labelLocSpeed">"Velocidade (m/s) = "</string>
     <string name="labelLocLat">"Latitude (graus) = "</string>
-    <string name="labelLocCourse">Rumo (graus) =</string>
+    <string name="labelLocCourse">"Rumo (graus) = "</string>
     <string name="labelLoc">Dados da localização atual</string>
     <string name="labelLocUnavailable">Indisponível</string>
     <string name="labelLastLoc">Dados da última localização</string>
-    <string name="labelLocAccuracy">Acurácia (metros) =</string>
+    <string name="labelLocAccuracy">"Acurácia (metros) = "</string>
     <string name="labelUpdateUnavailable">Informação de atualização indisponível</string>
     <string name="labelLastPosition">Última posição</string>
     <string name="labelLocMarker">Localização atual</string>
     <string name="msgNoGPS">Localização desligada</string>
     <string name="msgNoNet">Conexão de rede desligada</string>
+    <string name="labelLocSpeedKm">"Velocidade (Km/h) = "</string>
+    <string name="labelLocSpeedMph">"Velocidade (Mph) = "</string>
 </resources>
