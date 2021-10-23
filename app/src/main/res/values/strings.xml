@@ -68,4 +68,8 @@
     <string name="labelLocSpeedKm">"Speed (Km/h) = "</string>
     <string name="labelLocSpeedMph">"Speed (Mph) = "</string>
     <string name="labelLocationUpdates"><b>Location updates</b></string>
+    <string name="labelLocLatDDM">Latitude (degrees minutes) =</string>
+    <string name="labelLocLongDDM">Longitude (degrees minutes) =</string>
+    <string name="labelLocLatDMS">Latitude (degrees minutes seconds) =</string>
+    <string name="labelLocLongDMS">Longitude (degrees minutes seconds) =</string>
 </resources>

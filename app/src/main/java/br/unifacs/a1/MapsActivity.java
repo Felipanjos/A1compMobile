@@ -3,20 +3,14 @@ package br.unifacs.a1;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,28 +23,24 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import br.unifacs.a1.databinding.ActivityMapsBinding;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
 
     private static final int REQUEST_LOCATION = 1;
-    private static final int REQUEST_LAST_LOCATION = 1;
     private static final int REQUEST_LOCATION_UPDATES = 2;
-
-    private SensorManager mSensorManager;
-    private SensorEventListener sensorEventListener;
-    private Sensor accelerometer;
-    private Sensor magnetometer;
-    private float[] mGravity;
-    private float[] mGeomagnetic;
-    private Float azimut, degrees;
+    private static final int REQUEST_LAST_LOCATION = 3;
 
     private GoogleMap mMap;
-    private Marker currentPos, lastPos, starterPos;
+    private Circle circle;
+    private Marker marker, salvador;
+
+    private boolean update = false;
 
     private SharedPreferences dados;
 
@@ -60,81 +50,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dados = getSharedPreferences("Config", Context.MODE_PRIVATE);
-        client = LocationServices.getFusedLocationProviderClient(this);
 
         br.unifacs.a1.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        assert mapFragment != null;
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        //sensor manager
-        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        accelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        magnetometer = mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
-        sensorEventListener= new SensorEventListener() {
-            @Override
-            public void onSensorChanged(SensorEvent event) {
-
-                if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
-                    mGravity = event.values;
-                if (event.sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD)
-                    mGeomagnetic = event.values;
-                if (mGravity != null && mGeomagnetic != null) {
-                    float R[] = new float[9];
-                    float I[] = new float[9];
-                    boolean success = SensorManager.getRotationMatrix(R, I, mGravity, mGeomagnetic);
-                    if (success) {
-                        float orientation[] = new float[3];
-                        SensorManager.getOrientation(R, orientation);
-                        azimut = orientation[0]; // orientation contains: azimut, pitch and roll
-                        degrees = (float) Math.toDegrees(azimut);
-                        /**
-                         * TRY THIS TO UPDATE YOUR CAMERA
-                         * degrees you can use as bearing
-                         * CameraPosition cameraPosition = new CameraPosition( myLatLng, 15, 0, degrees);
-                         * map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),200, null);
-                         **/
-                    }
-                }
-            }
-
-            @Override
-            public void onAccuracyChanged(Sensor sensor, int i) {
-                //TODO: checar possibildade de desenharo o raio aqui
-            }
-        };
-
-        // recebe última localização
-        updateStatusBar(null);
-        locationUpdates();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mSensorManager.unregisterListener(sensorEventListener);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(sensorEventListener, accelerometer, SensorManager.SENSOR_DELAY_UI);
-        mSensorManager.registerListener(sensorEventListener, magnetometer, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         markers();
-        //Configura o mapa e seus elementos, baseado na tela de configurações
-        setMap();
+        mapConfig();
+        updateStatusBar(null);
+        locationUpdates();
     }
 
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(this, getResources().getString(R.string.msgLocButtonClicked), Toast.LENGTH_SHORT).show();
         return false;
     }
 
@@ -152,7 +87,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 lastLocation();
         } else
-            permissionDenied();
+                permissionDenied();
+
+        if (requestCode == REQUEST_LOCATION) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                enableLocation();
+            else
+                permissionDenied();
+        }
+
         if (requestCode == REQUEST_LOCATION_UPDATES) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // O usuário acabou de dar a permissão
@@ -162,56 +105,55 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    //Fused location
     private void locationUpdates() {
-        // Se a app já possui a permissão, ativa a calamada de localização
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            // A permissão foi dada
-//            flagUpdate = true;
-            client.getLastLocation().addOnSuccessListener(this, location -> {
-                currentPos.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-                currentPos.setVisible(true);
-            });
-            // Configura solicitações de localização
+
+            client = LocationServices.getFusedLocationProviderClient(this);
+
             LocationRequest request = LocationRequest.create();
             request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            request.setInterval(25 * 1000);
+            request.setInterval(5 * 1000);
             request.setFastestInterval(100);
-            // Programa o evento a ser chamado em intervalo regulares de tempo
+
+            //marcador da posição atual
+            //criação do círculo no marcador
+            //course up
             LocationCallback callback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
                     Location location = locationResult.getLastLocation();
+                    update = true;
+
                     updateStatusBar(location);
 
-                    // TODO: marker da posição atual (case 3)
-                    //marker da última posição atual
-                    lastPos.setPosition(currentPos.getPosition());
-                    lastPos.setVisible(true);
+                    //marcador da posição atual
+                    marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                    marker.setAnchor(0.5f, 0.5f);
+                    marker.setRotation(location.getBearing());
+                    marker.setVisible(true);
 
-                    //marker da posição atual
-                    currentPos.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-                    currentPos.setVisible(true);
+                    //criação do círculo no marcador
+                    circle.setCenter(new LatLng(location.getLatitude(), location.getLongitude()));
+                    circle.setRadius(location.getAccuracy());
+                    circle.setVisible(true);
 
-                    currentPos.setRotation(degrees);
-
-                    //mover câmera
-                    CameraPosition cameraPosition =
-                            new CameraPosition.Builder().target(new LatLng(location.getLatitude(), location.getLongitude()))
-                                    .bearing(degrees)
-                                    .zoom(17.0f)
-                                    .tilt(0)
-                                    .build();
-
-                    mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition),200, null);
+                    //course up
+                    if (dados.getString("Orientacao", getResources().getString(R.string.labelMap3)).equals(getResources().getString(R.string.labelMap3))) {
+                        CameraPosition cameraPosition =
+                                new CameraPosition.Builder().target(new LatLng(location.getLatitude(), location.getLongitude()))
+                                        .bearing(location.getBearing())
+                                        .zoom(18.0f)
+                                        .tilt(0)
+                                        .build();
+                        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    }
                 }
             };
             client.requestLocationUpdates(request, callback, null);
         } else {
             // Solicite a permissão
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_UPDATES);
-            lastLocation();
         }
     }
 
@@ -227,15 +169,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (location != null) {
             //TODO: status bar config
-            String latDDM, longDDM,
-                    latDMS, longDMS;
+            salvador.setVisible(false);
 
             if (dados.getBoolean("Km/h", true)) {
-                location.setSpeed(location.getSpeed() * (float) 3.6);
+                location.setSpeed(location.getSpeed() * 3.6f);
                 speed = getResources().getString(R.string.labelLocSpeedKm);
             }
             if (dados.getBoolean("Mph", true)) {
-                location.setSpeed(location.getSpeed() * (float) 2.23694);
+                location.setSpeed(location.getSpeed() * 2.23694f);
                 speed = getResources().getString(R.string.labelLocSpeedMph);
             }
 
@@ -244,24 +185,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 texto += lat + location.getLatitude() + "\n"
                         + longi + location.getLongitude() + "\n";
             }
-//            if (dados.getString("Formato", DD).equals(DDM)) {
-//                latDDM = converteCoordenadas(location.getLatitude(), "DDM");
-//                longDDM = converteCoordenadas(location.getLongitude(), "DDM");
-//
-//                texto += lat + latDDM + "\n"
-//                        + longi + longDDM + "\n";
-//            }
-//            if (dados.getString("Formato", DD).equals(DMS)) {
-//                latDMS = converteCoordenadas(location.getLatitude(), "DMS");
-//                longDMS = converteCoordenadas(location.getLongitude(), "DMS");
-//
-//                texto += lat + latDMS + "\n"
-//                        + longi + longDMS + "\n";
-//            }
+            if (dados.getString("Formato", DD).equals(DDM)) {
+                lat = getResources().getString(R.string.labelLocLatDDM);
+                longi = getResources().getString(R.string.labelLocLongDDM);
+                texto += lat + Location.convert(location.getLatitude(), Location.FORMAT_MINUTES) + "\n"
+                        + longi + Location.convert(location.getLongitude(), Location.FORMAT_MINUTES) + "\n";
+            }
+            if (dados.getString("Formato", DD).equals(DMS)) {
+                lat = getResources().getString(R.string.labelLocLongDMS);
+                longi = getResources().getString(R.string.labelLocLongDMS);
+                texto += lat + Location.convert(location.getLatitude(), Location.FORMAT_SECONDS) + "\n"
+                        + longi + Location.convert(location.getLongitude(), Location.FORMAT_SECONDS) + "\n";
+            }
 
             texto += speed + location.getSpeed();
-        } else
+        } else {
             texto += getResources().getString(R.string.labelUpdateUnavailable);
+            salvador.setVisible(true);
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(salvador.getPosition(), 15.0f));
+        }
         textView.setText(texto);
     }
 
@@ -271,9 +213,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // A permissão foi dada
             client.getLastLocation().addOnSuccessListener(this, location -> {
                 //TODO: adicionar marker da última posição (case 2)
-                    lastPos.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-                    lastPos.setVisible(true);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastPos.getPosition(), 15.0f));
+                if (location != null && !update) {
+                    marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                    marker.setTitle(getResources().getString(R.string.labelLastLoc));
+                    marker.setVisible(true);
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15.0f));
+                }
             });
         } else {
             // Solicite a permissão
@@ -282,7 +227,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void mapConfig() {
-        //TODO: exibir formato satelite, vetorial e info de trafego
         //satelite
         if (dados.getBoolean("Satelite", true))
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -297,29 +241,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (dados.getBoolean("Mostrar trafego", true))
             mMap.setTrafficEnabled(true);
 
+        //configurações gerais
         mMap.setIndoorEnabled(true);
         mMap.setBuildingsEnabled(true);
-    }
 
-    private void enableLocation() {
-        mMap.setOnMyLocationButtonClickListener(this);
-        mMap.setOnMyLocationClickListener(this);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-            mMap.setMyLocationEnabled(true);
-        else
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-    }
-
-    public void mapOrientations() {
-        //TODO: adicionar orientacoes
+        //orientações
         UiSettings mapUI = mMap.getUiSettings();
         mapUI.setZoomControlsEnabled(true);
 
         String mapNone = getResources().getString(R.string.labelMap1),
                 mapNorth = getResources().getString(R.string.labelMap2),
                 mapCourse = getResources().getString(R.string.labelMap3);
-        // none
+        //none
         if (dados.getString("Orientacao", mapNone).equals(mapNone)) {
             mapUI.setAllGesturesEnabled(true);
             mapUI.setCompassEnabled(true);
@@ -336,81 +269,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mapUI.setRotateGesturesEnabled(false);
             mapUI.setZoomGesturesEnabled(true);
         }
+
+        enableLocation();
+    }
+
+    private void enableLocation() {
+        mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationClickListener(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+            mMap.setMyLocationEnabled(true);
+        else
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
     }
 
     private void markers() {
-        //TODO: marcadores para cases 1, 2 e 3
-        //case 1
-        starterPos = mMap.addMarker(new MarkerOptions()
+        salvador = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(-12.9704, -38.5124))
                 .title(getResources().getString(R.string.labelMarker))
                 .visible(false));
-        //case 2
-        lastPos = mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(-12.977620, -38.513260))
-                .title(getResources().getString(R.string.labelLastPosition))
-                .visible(false));
-        //case 3
-        currentPos = mMap.addMarker(new MarkerOptions()
+        marker = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(-12.937620, -38.413260))
                 .title(getResources().getString(R.string.labelLocMarker))
                 .visible(false)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.carro)));
+        circle = mMap.addCircle(new CircleOptions()
+                .visible(false)
+                .center(new LatLng(-12.977620, -38.513260))
+                .radius(10)
+                .strokeColor(0xAA000000)
+                .fillColor(0x5DE5FC1E));
     }
 
     private void permissionDenied() {
         //O usuário não deu a permissão solicitada
         Toast.makeText(this, getResources().getString(R.string.msgLocPermissionDenied), Toast.LENGTH_SHORT).show();
-        starterPos.setVisible(true);
-        currentPos.setVisible(false);
-        lastPos.setVisible(false);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(starterPos.getPosition(), 15.0f));
+        finish();
     }
-
-    private void setMap() {
-        mapOrientations();
-        enableLocation();
-        mapConfig();
-    }
-
-//    private String converteCoordenadas(double cord, String tipo) {
-//
-//        String texto = String.valueOf(cord);
-//        int separador = texto.indexOf(".");
-//        String valor;
-//
-//        if (cord >= 0)
-//            valor = "E";
-//        else
-//            valor = "S";
-//
-//        String textoGrau = texto.substring(0, separador),
-//                textoMinuto = "0." + texto.substring(separador);
-//
-//        int grau = Integer.parseInt(textoGrau);
-//        double minuto = Double.parseDouble(textoMinuto);
-//        minuto *= 60;
-//        Toast.makeText(this, "estou aqui 1", Toast.LENGTH_SHORT).show();
-//
-//        if (tipo.equalsIgnoreCase("DDM")) {
-//            Toast.makeText(this, "estou aqui 2", Toast.LENGTH_SHORT).show();
-//            return grau + "º " + minuto + "' " + "\" " + valor;
-//        }
-//
-//        if (tipo.equalsIgnoreCase("DMS")) {
-//            Toast.makeText(this, "estou aqui 3", Toast.LENGTH_SHORT).show();
-//            textoMinuto = String.valueOf(minuto);
-//            textoMinuto = textoMinuto.substring(0, separador);
-//                String textoSegundo = "0." + textoMinuto.substring(separador);
-//
-//            double segundo = Double.parseDouble(textoSegundo);
-//            segundo *= 60;
-//
-//            return grau + "º " + textoMinuto + "' " + segundo + "\" " + valor;
-//        }
-//        else {
-//            Toast.makeText(this, "estou aqui 4", Toast.LENGTH_SHORT).show();
-//            return "null";
-//        }
-//    }
 }
