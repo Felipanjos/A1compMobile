@@ -3,6 +3,7 @@ package br.unifacs.a1;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -28,6 +30,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import br.unifacs.a1.databinding.ActivityMapsBinding;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener, GoogleMap.OnMyLocationClickListener {
@@ -54,9 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         br.unifacs.a1.databinding.ActivityMapsBinding binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
@@ -67,9 +68,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapConfig();
         updateStatusBar(null);
         locationUpdates();
+        setCamera();
     }
 
     public boolean onMyLocationButtonClick() {
+        if (salvador.isVisible())
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(salvador.getPosition(), 15.0f));
+        else
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 20.0f));
         return false;
     }
 
@@ -82,25 +88,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // TODO: Adiciona um marcador em Salvador (case 1)
+        boolean locationPermitida = grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED;
+
         if (requestCode == REQUEST_LAST_LOCATION) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (locationPermitida)
                 lastLocation();
-        } else
+            else
                 permissionDenied();
+        }
 
         if (requestCode == REQUEST_LOCATION) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            if (locationPermitida)
                 enableLocation();
             else
                 permissionDenied();
         }
 
         if (requestCode == REQUEST_LOCATION_UPDATES) {
-            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // O usuário acabou de dar a permissão
+            if (locationPermitida)
                 locationUpdates();
-            } else
+             else
                 permissionDenied();
         }
     }
@@ -111,40 +118,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             client = LocationServices.getFusedLocationProviderClient(this);
 
             LocationRequest request = LocationRequest.create();
-            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            request.setInterval(5 * 1000);
-            request.setFastestInterval(100);
+                request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                request.setInterval(5 * 1000);
+                request.setFastestInterval(100);
 
-            //marcador da posição atual
-            //criação do círculo no marcador
-            //course up
             LocationCallback callback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
                     Location location = locationResult.getLastLocation();
                     update = true;
+                    float zoomAnterior = mMap.getCameraPosition().zoom;
 
                     updateStatusBar(location);
 
                     //marcador da posição atual
-                    marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-                    marker.setAnchor(0.5f, 0.5f);
-                    marker.setRotation(location.getBearing());
-                    marker.setVisible(true);
+                        marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+                        marker.setAnchor(0.5f, 0.5f);
+                        marker.setRotation(location.getBearing());
+                        marker.setVisible(true);
 
-                    //criação do círculo no marcador
-                    circle.setCenter(new LatLng(location.getLatitude(), location.getLongitude()));
-                    circle.setRadius(location.getAccuracy());
-                    circle.setVisible(true);
+                    //raio baseado na accuracy
+                        circle.setCenter(new LatLng(location.getLatitude(), location.getLongitude()));
+                        circle.setRadius(location.getAccuracy());
+                        circle.setVisible(true);
 
                     //course up
                     if (dados.getString("Orientacao", getResources().getString(R.string.labelMap3)).equals(getResources().getString(R.string.labelMap3))) {
                         CameraPosition cameraPosition =
                                 new CameraPosition.Builder().target(new LatLng(location.getLatitude(), location.getLongitude()))
                                         .bearing(location.getBearing())
-                                        .zoom(18.0f)
-                                        .tilt(0)
+                                        .zoom(zoomAnterior)
                                         .build();
                         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
                     }
@@ -160,17 +164,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void updateStatusBar(Location location) {
         TextView textView = findViewById(R.id.txtStatusBar);
         String texto = getResources().getString(R.string.labelLoc) + "\n",
-                lat = getResources().getString(R.string.labelLocLat),
-                longi = getResources().getString(R.string.labelLocLong),
+                txtLat = getResources().getString(R.string.labelLocLat),
+                txtLong = getResources().getString(R.string.labelLocLong),
                 speed = getResources().getString(R.string.labelLocSpeed),
                 DD = getResources().getString(R.string.labelGrau1),
                 DDM = getResources().getString(R.string.labelGrau2),
-                DMS = getResources().getString(R.string.labelGrau3);
+                DMS = getResources().getString(R.string.labelGrau3),
+                latDDM = getResources().getString(R.string.labelLocLatDDM),
+                longDDM = getResources().getString(R.string.labelLocLongDDM),
+                latDMS = getResources().getString(R.string.labelLocLongDMS),
+                longDMS = getResources().getString(R.string.labelLocLongDMS);
+
 
         if (location != null) {
-            //TODO: status bar config
-            salvador.setVisible(false);
+            //TODO: configurações da barra de status
 
+            double latitude = location.getLongitude(),
+                    longitude = location.getLatitude();
+
+            //unidade da velocidade
             if (dados.getBoolean("Km/h", true)) {
                 location.setSpeed(location.getSpeed() * 3.6f);
                 speed = getResources().getString(R.string.labelLocSpeedKm);
@@ -180,29 +192,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 speed = getResources().getString(R.string.labelLocSpeedMph);
             }
 
-            //coordinates config
+            String x = Location.convert(location.getLatitude(), Location.FORMAT_MINUTES);
+
+            //formado das coordenadas
             if (dados.getString("Formato", DD).equals(DD)) {
-                texto += lat + location.getLatitude() + "\n"
-                        + longi + location.getLongitude() + "\n";
+                texto += txtLat + latitude + "\n" + txtLong + longitude + "\n";
             }
             if (dados.getString("Formato", DD).equals(DDM)) {
-                lat = getResources().getString(R.string.labelLocLatDDM);
-                longi = getResources().getString(R.string.labelLocLongDDM);
-                texto += lat + Location.convert(location.getLatitude(), Location.FORMAT_MINUTES) + "\n"
-                        + longi + Location.convert(location.getLongitude(), Location.FORMAT_MINUTES) + "\n";
+                texto += latDMS + Location.convert(latitude, Location.FORMAT_MINUTES) + "\n"
+                        + longDMS + Location.convert(longitude, Location.FORMAT_MINUTES) + "\n";
             }
             if (dados.getString("Formato", DD).equals(DMS)) {
-                lat = getResources().getString(R.string.labelLocLongDMS);
-                longi = getResources().getString(R.string.labelLocLongDMS);
-                texto += lat + Location.convert(location.getLatitude(), Location.FORMAT_SECONDS) + "\n"
-                        + longi + Location.convert(location.getLongitude(), Location.FORMAT_SECONDS) + "\n";
+                texto += latDDM + Location.convert(latitude, Location.FORMAT_SECONDS) + "\n"
+                        + longDDM + Location.convert(longitude, Location.FORMAT_SECONDS) + "\n";
             }
-
             texto += speed + location.getSpeed();
         } else {
-            texto += getResources().getString(R.string.labelUpdateUnavailable);
-            salvador.setVisible(true);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(salvador.getPosition(), 15.0f));
+//                salvador.setVisible(true);
+//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(salvador.getPosition(), 15.0f));
+                texto += getResources().getString(R.string.labelUpdateUnavailable);
         }
         textView.setText(texto);
     }
@@ -212,12 +220,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // A permissão foi dada
             client.getLastLocation().addOnSuccessListener(this, location -> {
-                //TODO: adicionar marker da última posição (case 2)
+                //TODO: adicionar marker da última posição conhecida caso não existam atualizações
                 if (location != null && !update) {
                     marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     marker.setTitle(getResources().getString(R.string.labelLastLoc));
                     marker.setVisible(true);
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 15.0f));
                 }
             });
         } else {
@@ -227,6 +234,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void mapConfig() {
+        //todo: satelite, vetorial, trafego, orientações
         //satelite
         if (dados.getBoolean("Satelite", true))
             mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
@@ -241,7 +249,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (dados.getBoolean("Mostrar trafego", true))
             mMap.setTrafficEnabled(true);
 
-        //configurações gerais
         mMap.setIndoorEnabled(true);
         mMap.setBuildingsEnabled(true);
 
@@ -259,17 +266,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         //north up
         else if (dados.getString("Orientacao", mapNorth).equals(mapNorth)) {
-            mapUI.setZoomGesturesEnabled(true);
             mapUI.setRotateGesturesEnabled(false);
             mapUI.setCompassEnabled(false);
         }
         //course up
         else if (dados.getString("Orientacao", mapCourse).equals(mapCourse)) {
-            mapUI.setCompassEnabled(false);
             mapUI.setRotateGesturesEnabled(false);
-            mapUI.setZoomGesturesEnabled(true);
+            mapUI.setCompassEnabled(false);
         }
-
         enableLocation();
     }
 
@@ -284,6 +288,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void markers() {
+        //todo: configurações iniciais do marcador e do círculo da accuracy
         salvador = mMap.addMarker(new MarkerOptions()
                 .position(new LatLng(-12.9704, -38.5124))
                 .title(getResources().getString(R.string.labelMarker))
@@ -296,14 +301,28 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         circle = mMap.addCircle(new CircleOptions()
                 .visible(false)
                 .center(new LatLng(-12.977620, -38.513260))
-                .radius(10)
                 .strokeColor(0xAA000000)
                 .fillColor(0x5DE5FC1E));
     }
 
     private void permissionDenied() {
-        //O usuário não deu a permissão solicitada
         Toast.makeText(this, getResources().getString(R.string.msgLocPermissionDenied), Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    private void setCamera() {
+        //todo: adicionar marcador em uma determinada posição caso não haja localização disponível
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            if (client.getLastLocation() != null) {
+                client.getLastLocation().addOnSuccessListener(this, location -> {
+                    if (location != null)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker.getPosition(), 20.0f));
+                    else {
+                        salvador.setVisible(true);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(salvador.getPosition(), 15.0f));
+                    }
+                });
+            }
+        }
     }
 }
