@@ -68,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapConfig();
         updateStatusBar(null);
         locationUpdates();
+        lastLocation();
         setCamera();
     }
 
@@ -175,7 +176,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 latDMS = getResources().getString(R.string.labelLocLongDMS),
                 longDMS = getResources().getString(R.string.labelLocLongDMS);
 
-
         if (location != null) {
             //TODO: configurações da barra de status
 
@@ -192,26 +192,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 speed = getResources().getString(R.string.labelLocSpeedMph);
             }
 
-            String x = Location.convert(location.getLatitude(), Location.FORMAT_MINUTES);
-
             //formado das coordenadas
             if (dados.getString("Formato", DD).equals(DD)) {
                 texto += txtLat + latitude + "\n" + txtLong + longitude + "\n";
             }
             if (dados.getString("Formato", DD).equals(DDM)) {
-                texto += latDMS + Location.convert(latitude, Location.FORMAT_MINUTES) + "\n"
-                        + longDMS + Location.convert(longitude, Location.FORMAT_MINUTES) + "\n";
+                texto += latDDM + Location.convert(latitude, Location.FORMAT_MINUTES) + "\n"
+                        + longDDM + Location.convert(longitude, Location.FORMAT_MINUTES) + "\n";
             }
             if (dados.getString("Formato", DD).equals(DMS)) {
-                texto += latDDM + Location.convert(latitude, Location.FORMAT_SECONDS) + "\n"
-                        + longDDM + Location.convert(longitude, Location.FORMAT_SECONDS) + "\n";
+
+                texto += latDMS + Location.convert(latitude, Location.FORMAT_SECONDS) + "\n"
+                        + longDMS + Location.convert(longitude, Location.FORMAT_SECONDS) + "\n";
             }
             texto += speed + location.getSpeed();
-        } else {
-//                salvador.setVisible(true);
-//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(salvador.getPosition(), 15.0f));
+        } else
                 texto += getResources().getString(R.string.labelUpdateUnavailable);
-        }
         textView.setText(texto);
     }
 

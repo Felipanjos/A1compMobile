@@ -63,8 +63,8 @@
     <string name="labelLocSpeedKm">"Velocidade (Km/h) = "</string>
     <string name="labelLocSpeedMph">"Velocidade (Mph) = "</string>
     <string name="labelLocationUpdates"><b>Atualização de posição</b></string>
-    <string name="labelLocLatDDM">Latitude (grau minuto) =</string>
-    <string name="labelLocLongDDM">Longitude (grau minuto) =</string>
+    <string name="labelLocLatDDM">"Latitude (grau minuto) = "</string>
+    <string name="labelLocLongDDM">"Longitude (grau minuto) = "</string>
     <string name="labelLocLatDMS">"Latidade (grau minuto segundo) = "</string>
     <string name="labelLocLongDMS">"Longitude (grau minuto segundo) = "</string>
 </resources>
