@@ -67,4 +67,10 @@
     <string name="labelLocLongDDM">"Longitude (grau minuto) = "</string>
     <string name="labelLocLatDMS">"Latidade (grau minuto segundo) = "</string>
     <string name="labelLocLongDMS">"Longitude (grau minuto segundo) = "</string>
+    <string name="labelGnssDetails">Detalhes 🔎</string>
+    <string name="labelGnssSelector">Seletor GNSS</string>
+    <string name="labelSatelliteNumber">Número de Satélites:</string>
+    <string name="labelGnssDetailOrg">"Legenda: SVID |  Azimuth | Elevação |  Used In Fix |  SNR "</string>
+    <string name="labelGnssUnavailable">GNSS Indisponível</string>
+    <string name="labelPositionSysData">"Dados do Sitema de Posicionamento: "</string>
 </resources>

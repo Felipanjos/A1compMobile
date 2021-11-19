@@ -24,6 +24,9 @@
         <entry key="app/src/main/res/layout/activity_credit.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_gnss.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_gnssactivity.xml" value="0.340625" />
+        <entry key="app/src/main/res/layout/activity_gnssradar.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_gnssradar2.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/activity_gnssselector.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_historico.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_maps.xml" value="0.35572916666666665" />

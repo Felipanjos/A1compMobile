@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class GNSSActivity extends AppCompatActivity implements LocationListener {
+public class GNSSDetailsActivity extends AppCompatActivity implements LocationListener {
     private LocationManager manager; 
     private LocationProvider provider; 
     private GnssStatusCallback callback;
@@ -107,10 +107,9 @@ public class GNSSActivity extends AppCompatActivity implements LocationListener 
         @Override
         public void onSatelliteStatusChanged(@NonNull GnssStatus status) {
             TextView textViewSatellite = (TextView) findViewById(R.id.SatelliteInfo);
-            String texto = "Dados do Sitema de Posicionamento \n";
+            String texto = getResources().getString(R.string.labelPositionSysData) + "\n";
             if (status != null) {
-                texto += "Número de Satélites:" + status.getSatelliteCount() + "\n" +
-                        "Organização: SVID   Azimuth   Elevation   Used In Fix   SNR \n";
+                texto += getResources().getString(R.string.labelSatelliteNumber) + status.getSatelliteCount() + "\n" + getResources().getString(R.string.labelGnssDetailOrg) + "\n";
                 for(int position = 0; position < status.getSatelliteCount(); position++) {
                     texto += status.getSvid(position) + "-" + status.getConstellationType(position) +
                             "  |  " + status.getAzimuthDegrees(position) +
@@ -120,7 +119,7 @@ public class GNSSActivity extends AppCompatActivity implements LocationListener 
                 }
             }
             else
-                texto += "GNSS Não disponível";
+                texto += getResources().getString(R.string.labelGnssUnavailable);
             textViewSatellite.setText(texto);
         }
     }

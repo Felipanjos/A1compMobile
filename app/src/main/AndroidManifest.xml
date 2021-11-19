@@ -17,6 +17,12 @@
         android:roundIcon="@mipmap/cartogramaps_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.A1">
+        <activity
+            android:name=".GNSSRadarActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GNSSSelectorActivity"
+            android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -38,7 +44,7 @@
             android:exported="true"
             android:label="@string/labelHistorico" />
         <activity
-            android:name=".GNSSActivity"
+            android:name=".GNSSDetailsActivity"
             android:exported="true"
             android:label="@string/labelGnss" />
         <activity

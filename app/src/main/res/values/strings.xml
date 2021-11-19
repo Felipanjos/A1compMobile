@@ -72,4 +72,11 @@
     <string name="labelLocLongDDM">"Longitude (degrees minutes) = "</string>
     <string name="labelLocLatDMS">"Latitude (degrees minutes seconds) = "</string>
     <string name="labelLocLongDMS">"Longitude (degrees minutes seconds) = "</string>
+    <string name="labelGnssRadar" translatable="false">Radar 🛰</string>
+    <string name="labelGnssDetails">Details 🔎</string>
+    <string name="labelGnssSelector"><b> GNSS Selector </b></string>
+    <string name="labelSatelliteNumber">Satellite count:</string>
+    <string name="labelGnssDetailOrg">"Caption: SVID |  Azimuth | Elevation |  Used In Fix |  SNR "</string>
+    <string name="labelGnssUnavailable">GNSS Unavailable</string>
+    <string name="labelPositionSysData">Position System Data:</string>
 </resources>
