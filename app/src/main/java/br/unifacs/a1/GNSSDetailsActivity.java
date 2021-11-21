@@ -24,7 +24,7 @@ public class GNSSDetailsActivity extends AppCompatActivity implements LocationLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gnss);
+        setContentView(R.layout.activity_gnssdetail);
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
         provider = manager.getProvider(LocationManager.GPS_PROVIDER);
         GNSSOn();
@@ -108,6 +108,7 @@ public class GNSSDetailsActivity extends AppCompatActivity implements LocationLi
         public void onSatelliteStatusChanged(@NonNull GnssStatus status) {
             TextView textViewSatellite = (TextView) findViewById(R.id.SatelliteInfo);
             String texto = getResources().getString(R.string.labelPositionSysData) + "\n";
+            int inuse = 0;
             if (status != null) {
                 texto += getResources().getString(R.string.labelSatelliteNumber) + status.getSatelliteCount() + "\n" + getResources().getString(R.string.labelGnssDetailOrg) + "\n";
                 for(int position = 0; position < status.getSatelliteCount(); position++) {
@@ -116,7 +117,10 @@ public class GNSSDetailsActivity extends AppCompatActivity implements LocationLi
                             "  |  " + status.getElevationDegrees(position) +
                             "  |  " + status.usedInFix(position)  +
                             "  |  " + status.getCn0DbHz(position) + " |X| \n";
+                    if (status.usedInFix(position))
+                        inuse++;
                 }
+                texto += "Satélites sendo utilizados: " + inuse;
             }
             else
                 texto += getResources().getString(R.string.labelGnssUnavailable);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background1"
-    tools:context=".HistoricoActivity">
+    tools:context=".HistoricoSelectorActivity">
 
     <TextView
         android:id="@+id/textView21"
@@ -13,7 +13,7 @@
         android:layout_height="51dp"
         android:foregroundGravity="center"
         android:gravity="center"
-        android:text="@string/msgWIP"
+        android:text="@string/labelHistorySelector"
         android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -22,37 +22,36 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:foregroundGravity="center"
-        android:gravity="center"
-        android:text="@string/msgWIP2"
-        android:textColor="#0FD629"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView21"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.261" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonHistoricoVoltar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button"
-        android:textColor="@color/white"
-        android:text="@string/labelVoltar"
+        android:id="@+id/buttonHistoricoMapa"
+        android:layout_width="99dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_destaque"
+        android:text="@string/labelHistoryMap"
         android:textAllCaps="false"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.297"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.573" />
+        app:layout_constraintVertical_bias="0.472" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonHistoricoTabela"
+        android:layout_width="106dp"
+        android:layout_height="47dp"
+        android:background="@drawable/button"
+        android:text="@string/labelHistoryTable"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.472" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

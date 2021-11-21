@@ -18,10 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.A1">
         <activity
-            android:name=".GNSSRadarActivity"
-            android:exported="true" />
-        <activity
-            android:name=".GNSSSelectorActivity"
+            android:name=".HistoricoTabelaActivity"
             android:exported="true" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -36,11 +33,21 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".HistoricoMapaActivity"
+            android:exported="true"
+            android:label="@string/title_activity_historico_mapa" />
+        <activity
+            android:name=".GNSSRadarActivity"
+            android:exported="true" />
+        <activity
+            android:name=".GNSSSelectorActivity"
+            android:exported="true" />
+        <activity
             android:name=".MapsActivity"
             android:exported="true"
             android:label="@string/labelNavegacao" />
         <activity
-            android:name=".HistoricoActivity"
+            android:name=".HistoricoSelectorActivity"
             android:exported="true"
             android:label="@string/labelHistorico" />
         <activity

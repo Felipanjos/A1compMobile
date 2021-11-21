@@ -1,6 +1,7 @@
 package br.unifacs.a1;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -30,6 +31,17 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 
 import br.unifacs.a1.databinding.ActivityMapsBinding;
 
@@ -38,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private static final int REQUEST_LOCATION = 1;
     private static final int REQUEST_LOCATION_UPDATES = 2;
     private static final int REQUEST_LAST_LOCATION = 3;
+    private static int COUNT;
 
     private GoogleMap mMap;
     private Circle circle;
@@ -48,6 +61,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private SharedPreferences dados;
 
     private FusedLocationProviderClient client;
+    private LocationCallback callback;
+
+    private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
+    private DatabaseReference tabela = firebase.getReference("coordenada");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +76,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        tabela.removeValue();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (client != null)
+            client.removeLocationUpdates(callback);
     }
 
     @Override
@@ -123,7 +149,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 request.setInterval(5 * 1000);
                 request.setFastestInterval(100);
 
-            LocationCallback callback = new LocationCallback() {
+            COUNT = 0;
+
+            callback = new LocationCallback() {
                 @Override
                 public void onLocationResult(LocationResult locationResult) {
                     super.onLocationResult(locationResult);
@@ -131,6 +159,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     update = true;
                     float zoomAnterior = mMap.getCameraPosition().zoom;
 
+                    createCoordenada(COUNT, location);
+                    COUNT++;
+                    updateAmount();
                     updateStatusBar(location);
 
                     //marcador da posição atual
@@ -320,5 +351,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 });
             }
         }
+    }
+
+    private void createCoordenada(int id, Location ponto) {
+        double latitude = ponto.getLatitude();
+        double longitude = ponto.getLongitude();
+
+        Coordenada coordenada = new Coordenada(latitude, longitude, getData());
+
+        tabela.child(String.valueOf(id)).setValue(coordenada);
+    }
+
+    private String getData() {
+        Date date = new Date(System.currentTimeMillis());
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return formatter.format(date);
+    }
+
+    private void updateAmount() {
+        HashMap quantidade = new HashMap();
+        quantidade.put("quantidade", COUNT);
+
+        firebase.getReference("quantidade").updateChildren(quantidade);
     }
 }

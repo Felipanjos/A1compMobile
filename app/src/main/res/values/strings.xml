@@ -79,4 +79,8 @@
     <string name="labelGnssDetailOrg">"Caption: SVID |  Azimuth | Elevation |  Used In Fix |  SNR "</string>
     <string name="labelGnssUnavailable">GNSS Unavailable</string>
     <string name="labelPositionSysData">Position System Data:</string>
+    <string name="labelHistoryMap">Map 🗺</string>
+    <string name="labelHistoryTable">Table 🔎</string>
+    <string name="labelHistorySelector">History Selector</string>
+    <string name="title_activity_historico_mapa">HistoricoMapaActivity</string>
 </resources>

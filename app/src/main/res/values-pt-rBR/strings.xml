@@ -73,4 +73,8 @@
     <string name="labelGnssDetailOrg">"Legenda: SVID |  Azimuth | Elevação |  Used In Fix |  SNR "</string>
     <string name="labelGnssUnavailable">GNSS Indisponível</string>
     <string name="labelPositionSysData">"Dados do Sitema de Posicionamento: "</string>
+    <string name="labelHistoryMap">Mapa 🗺</string>
+    <string name="labelHistoryTable">Tabela 🔎</string>
+    <string name="labelHistorySelector">Seletor de Histórico</string>
+    <string name="title_activity_historico_mapa">HistoricoMapaActivity</string>
 </resources>

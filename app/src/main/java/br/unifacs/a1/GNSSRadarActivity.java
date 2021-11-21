@@ -41,7 +41,7 @@ public class GNSSRadarActivity extends AppCompatActivity implements LocationList
     private void GNSSOn() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             manager.requestLocationUpdates(provider.getName(),
-                    5 * 1000,
+                    5*1000,
                     0.1f,
                     this);
             callback = new MyGnssStatusCallback();
@@ -67,27 +67,21 @@ public class GNSSRadarActivity extends AppCompatActivity implements LocationList
     }
 
     @Override
-    public void onLocationChanged(@NonNull Location location) {
-
-    }
+    public void onLocationChanged(@NonNull Location location) {}
 
     private class MyGnssStatusCallback extends GnssStatus.Callback {
-        public MyGnssStatusCallback() { super(); }
-
-        @Override
-        public void onStarted() {
-
+        public MyGnssStatusCallback() {
+            super();
         }
 
         @Override
-        public void onStopped() {
-
-        }
+        public void onStarted() {}
 
         @Override
-        public void onFirstFix(int ttffMillis) {
+        public void onStopped() {}
 
-        }
+        @Override
+        public void onFirstFix(int ttffMillis) {}
 
         @Override
         public void onSatelliteStatusChanged(@NonNull GnssStatus status) {

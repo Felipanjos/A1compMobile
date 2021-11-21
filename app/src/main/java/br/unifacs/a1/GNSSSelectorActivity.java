@@ -20,7 +20,7 @@ public class GNSSSelectorActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.buttonGNSSRadar:
-                Intent viewRadar = new Intent(this, GNSSRadarDraw.class);
+                Intent viewRadar = new Intent(this, GNSSRadarActivity.class);
                 startActivity(viewRadar);
                 break;
             case R.id.buttonGNSSDetails:

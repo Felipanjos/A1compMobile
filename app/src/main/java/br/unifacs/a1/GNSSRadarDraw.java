@@ -13,67 +13,57 @@ import android.view.View;
 public class GNSSRadarDraw extends View {
 
     private GnssStatus currentStatus;
-    private int r, height, width;
+    private int radius, height, width;
 
     public GNSSRadarDraw(Context context, @Nullable AttributeSet attributes) {super(context,attributes);}
     public void onSatelliteStatusChanged(GnssStatus status) {
         currentStatus = status;
     }
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        // coletando informações do tamanho tela de desenho
-        width=getMeasuredWidth();
-        height=getMeasuredHeight();
+    protected void onDraw(Canvas tela) {
+        super.onDraw(tela);
+        width = getMeasuredWidth();
+        height = getMeasuredHeight();
 
-        // definindo o raio da esfera celeste
         if (width<height)
-            r=(int)(width/2*0.9);
+            radius =(int)(width/2*0.9);
         else
-            r=(int)(height/2*0.9);
+            radius =(int)(height/2*0.9);
 
-        // configurando o pincel para desenhar a projeção da esfera celeste
-        Paint paint=new Paint();
-        paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(5);
-        paint.setColor(Color.BLUE);
+        radius = width < height ? (int)(width/2*0.9) : (int)(height/2*0.9);
 
-        // Desenha a projeção da esfera celeste
-        // desenhando círculos concêntricos
-        int radiusAux = r;
-        canvas.drawCircle(computeXc(0), computeYc(0), radiusAux, paint);
-        radiusAux=(int)(radiusAux*Math.cos(Math.toRadians(45)));
-        canvas.drawCircle(computeXc(0), computeYc(0), radiusAux, paint);
-        radiusAux=(int)(radiusAux*Math.cos(Math.toRadians(60)));
-        canvas.drawCircle(computeXc(0), computeYc(0), radiusAux, paint);
+        Paint pincel=new Paint();
+        pincel.setStyle(Paint.Style.STROKE);
+        pincel.setStrokeWidth(5);
+        pincel.setColor(Color.GREEN);
 
-        //desenhando os eixos
-        canvas.drawLine(computeXc(0),computeYc(-r),computeXc(0),computeYc(r),paint);
-        canvas.drawLine(computeXc(-r),computeYc(0),computeXc(r),computeYc(0),paint);
+        int radiusAux = radius;
+        tela.drawCircle(xCircle(0), yCircle(0), radiusAux, pincel);
+            radiusAux=(int)(radiusAux*Math.cos(Math.toRadians(45)));
+        tela.drawCircle(xCircle(0), yCircle(0), radiusAux, pincel);
+            radiusAux=(int)(radiusAux*Math.cos(Math.toRadians(60)));
+        tela.drawCircle(xCircle(0), yCircle(0), radiusAux, pincel);
 
-        // configura o pincel para desenhar os satélites
-        paint.setColor(Color.RED);
-        paint.setStyle(Paint.Style.FILL);
+        tela.drawLine(xCircle(0), yCircle(-radius), xCircle(0), yCircle(radius), pincel);
+        tela.drawLine(xCircle(-radius), yCircle(0), xCircle(radius), yCircle(0), pincel);
 
-        // desenhando os satélites
-        if (currentStatus!=null) {
-            for(int i=0;i<currentStatus.getSatelliteCount();i++) {
-                float az=currentStatus.getAzimuthDegrees(i);
-                float el=currentStatus.getElevationDegrees(i);
-                float x=(float)(r*Math.cos(Math.toRadians(el))*Math.sin(Math.toRadians(az)));
-                float y=(float)(r*Math.cos(Math.toRadians(el))*Math.cos(Math.toRadians(az)));
-                canvas.drawCircle(computeXc(x), computeYc(y), 10, paint);
-                paint.setTextAlign(Paint.Align.LEFT);
-                paint.setTextSize(30);
-                String satID=currentStatus.getSvid(i)+"";
-                canvas.drawText(satID, computeXc(x)+10, computeYc(y)+10, paint);
+        pincel.setColor(Color.WHITE);
+        pincel.setStyle(Paint.Style.FILL);
+
+        if (currentStatus != null) {
+            for(int element = 0; element<currentStatus.getSatelliteCount(); element++) {
+                float azimuth = currentStatus.getAzimuthDegrees(element),
+                        elevation = currentStatus.getElevationDegrees(element),
+                        x = (float)(radius * Math.cos(Math.toRadians(elevation)) * Math.sin(Math.toRadians(azimuth))),
+                        y = (float)(radius * Math.cos(Math.toRadians(elevation)) * Math.cos(Math.toRadians(azimuth)));
+                tela.drawCircle(xCircle(x), yCircle(y), 10, pincel);
+                    pincel.setTextAlign(Paint.Align.LEFT);
+                    pincel.setTextSize(30);
+                String satelliteId = currentStatus.getSvid(element) + "";
+                tela.drawText(satelliteId, xCircle(x) + 10, yCircle(y) + 10, pincel);
             }
         }
     }
-    private int computeXc(double x) {
-        return (int)(x+width/2);
-    }
-    private int computeYc(double y) {
-        return (int)(-y+height/2);
-    }
+    private int xCircle(double x) { return (int)(x+width/2); }
+    private int yCircle(double y) { return (int)(-y+height/2); }
 }
