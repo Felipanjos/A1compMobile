@@ -21,7 +21,7 @@ public class HistoricoSelectorActivity extends AppCompatActivity implements View
         switch (view.getId()) {
 
             case R.id.buttonHistoricoMapa:
-                Intent viewMapa = new Intent(this, HistoricoMapaActivity.class);
+                Intent viewMapa = new Intent(this, HistoricoActivity.class);
                 startActivity(viewMapa);
                 break;
             case R.id.buttonHistoricoTabela:

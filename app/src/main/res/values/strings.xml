@@ -83,4 +83,6 @@
     <string name="labelHistoryTable">Table 🔎</string>
     <string name="labelHistorySelector">History Selector</string>
     <string name="title_activity_historico_mapa">HistoricoMapaActivity</string>
+    <string name="labelHistoryStart">"Start: "</string>
+    <string name="labelHistoryEnd">"End: "</string>
 </resources>

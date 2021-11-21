@@ -161,7 +161,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     createCoordenada(COUNT, location);
                     COUNT++;
-                    updateAmount();
                     updateStatusBar(location);
 
                     //marcador da posição atual
@@ -366,12 +365,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return formatter.format(date);
-    }
-
-    private void updateAmount() {
-        HashMap quantidade = new HashMap();
-        quantidade.put("quantidade", COUNT);
-
-        firebase.getReference("quantidade").updateChildren(quantidade);
     }
 }

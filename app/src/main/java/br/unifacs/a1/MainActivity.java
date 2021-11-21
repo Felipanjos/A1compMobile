@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(viewGnss);
                 break;
             case R.id.buttonHistorico:
-                Intent viewHistorico = new Intent(this, HistoricoSelectorActivity.class);
+                Intent viewHistorico = new Intent(this, HistoricoActivity.class);
                 startActivity(viewHistorico);
                 break;
             case R.id.buttonCredit:

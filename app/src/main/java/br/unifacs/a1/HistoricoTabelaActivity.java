@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -19,8 +22,10 @@ public class HistoricoTabelaActivity extends AppCompatActivity {
 
     private FirebaseDatabase firebase = FirebaseDatabase.getInstance();
     private DatabaseReference tabela = firebase.getReference("coordenada");
-    private Coordenada inicio;
-    private double latInicio, longInicio;
+    private double latInicio, longInicio,
+            latFim, longFim;
+    private Coordenada inicio, fim;
+    private long count;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,5 +57,47 @@ public class HistoricoTabelaActivity extends AppCompatActivity {
 //                texto.setText(inicio.getData());
 //            }
 //        });
+
+//        tabela.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                count = snapshot.getChildrenCount() - 1;
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        tabela.child("16").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                fim = snapshot.getValue(Coordenada.class);
+//                latFim = fim.getLatitude();
+//                longFim = fim.getLongitude();
+//                texto.setText(fim.getData());
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+        tabela.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot item : snapshot.getChildren()) {
+                    texto.setText(String.valueOf(item.getValue(Coordenada.class).getLatitude()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+        });
     }
 }
