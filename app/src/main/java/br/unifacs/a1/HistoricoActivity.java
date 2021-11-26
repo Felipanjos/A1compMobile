@@ -12,6 +12,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,7 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
     private double latInicio, longInicio,
                     latFim, longFim;
     private Coordenada inicio, fim, elemento;
+    private Marker start, end;
     private long quantidade = 0;
     private TextView texto;
 
@@ -60,7 +62,6 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         tabela = FirebaseDatabase.getInstance().getReference("coordenada");
-
         setInfo();
         drawRoute();
     }
@@ -75,7 +76,7 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
                     latInicio = inicio.getLatitude();
                     longInicio = inicio.getLongitude();
 
-                    mMap.addMarker(new MarkerOptions()
+                    start = mMap.addMarker(new MarkerOptions()
                             .title("Posição inicial")
                             .position(new LatLng(latInicio, longInicio)));
 
@@ -105,7 +106,7 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
                         latFim = fim.getLatitude();
                         longFim = fim.getLongitude();
 
-                        mMap.addMarker(new MarkerOptions()
+                        end = mMap.addMarker(new MarkerOptions()
                                 .title("Posição final")
                                 .position(new LatLng(latFim, longFim)));
                         setMessage("end");
@@ -175,7 +176,8 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
             case "start":
                 msg = getResources().getString(R.string.labelHistoryStart) + "\n" +
                         "     " + latInicio + "\n" +
-                        "     " + longInicio + "\n";
+                        "     " + longInicio + "\n" +
+                        "     " + inicio.getData();
                 start.setText(msg);
                 break;
             case "end":
