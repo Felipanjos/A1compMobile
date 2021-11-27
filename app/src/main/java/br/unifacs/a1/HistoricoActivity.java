@@ -67,7 +67,6 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void setInfo() {
-
         tabela.child("0").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -152,22 +151,6 @@ public class HistoricoActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void setMessage(String opcao) {
-//        tabela.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot item : snapshot.getChildren()) {
-//
-//
-//
-//
-//                    texto.setText(String.valueOf(item.getValue(Coordenada.class).getLatitude()));
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {}
-//        });
-
         TextView start = (TextView) findViewById(R.id.txtStart),
                       end = (TextView) findViewById(R.id.txtEnd);
         String msg = " ";

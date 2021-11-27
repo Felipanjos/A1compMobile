@@ -20,12 +20,15 @@ public class GNSSDetailsActivity extends AppCompatActivity implements LocationLi
     private LocationProvider provider; 
     private GnssStatusCallback callback;
     private static final int REQUEST_LOCATION = 1;
+    private TextView count, use;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gnssdetail);
         manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        count = (TextView) findViewById(R.id.satelliteCount);
+        use = (TextView) findViewById(R.id.satelliteUse);
         provider = manager.getProvider(LocationManager.GPS_PROVIDER);
         GNSSOn();
     }
@@ -71,10 +74,10 @@ public class GNSSDetailsActivity extends AppCompatActivity implements LocationLi
                 unavailable = getResources().getString(R.string.labelLocUnavailable);
 
         if (location != null) {
-            texto += txtLat + Location.convert(location.getLatitude(), Location.FORMAT_SECONDS) + "\n"
-                    + txtLong+ Location.convert(location.getLongitude(), Location.FORMAT_SECONDS) + "\n"
-                    + speed + location.getSpeed() + "\n"
-                    + bearing + location.getBearing();
+//            texto += txtLat + Location.convert(location.getLatitude(), Location.FORMAT_SECONDS) + "\n"
+//                    + txtLong+ Location.convert(location.getLongitude(), Location.FORMAT_SECONDS) + "\n"
+//                    + speed + location.getSpeed() + "\n"
+//                    + bearing + location.getBearing();
         }
         else
             texto += unavailable;
@@ -115,12 +118,8 @@ public class GNSSDetailsActivity extends AppCompatActivity implements LocationLi
                     texto += status.getSvid(position) + "-" + status.getConstellationType(position) +
                             "  |  " + status.getAzimuthDegrees(position) +
                             "  |  " + status.getElevationDegrees(position) +
-                            "  |  " + status.usedInFix(position)  +
-                            "  |  " + status.getCn0DbHz(position) + " |X| \n";
-                    if (status.usedInFix(position))
-                        inuse++;
+                            "  |  " + status.getCn0DbHz(position) + " |X|\n";
                 }
-                texto += "Satélites sendo utilizados: " + inuse;
             }
             else
                 texto += getResources().getString(R.string.labelGnssUnavailable);

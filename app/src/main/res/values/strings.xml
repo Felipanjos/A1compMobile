@@ -85,4 +85,22 @@
     <string name="title_activity_historico_mapa">HistoricoMapaActivity</string>
     <string name="labelHistoryStart">"Start: "</string>
     <string name="labelHistoryEnd">"End: "</string>
+    <string name="labelSatelliteCount">"Visible: "</string>
+    <string name="labelSatelliteUse">"Use count: "</string>
+    <string name="labelCaptions">Caption:</string>
+    <string name="red">Red:</string>
+    <string name="laranja">Orange:</string>
+    <string name="yellow">Yellow:</string>
+    <string name="lightgreen">Lightgreen:</string>
+    <string name="verde">Green:</string>
+    <string name="trapezio">Trapezium:</string>
+    <string name="circulo">Circle:</string>
+    <string name="losango">Diamond:</string>
+    <string name="triangulo">Triangle:</string>
+    <string name="square">Square:</string>
+    <string name="UE">🇪🇺</string>
+    <string name="USA">"United States "</string>
+    <string name="unknown">Unknown</string>
+    <string name="signalQuality">Signal quality (0 to 100)</string>
+    <string name="figures">Constellations</string>
 </resources>
