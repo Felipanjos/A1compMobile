@@ -11,7 +11,6 @@ import android.graphics.Rect;
 import android.location.GnssStatus;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.TextView;
 
 public class GNSSRadarDraw extends View {
 
@@ -34,13 +33,7 @@ public class GNSSRadarDraw extends View {
         width = getMeasuredWidth();
         height = getMeasuredHeight();
 
-        int radius;
-        if (width<height)
-            radius = (int)(width/2*0.9);
-        else
-            radius = (int)(height/2*0.9);
-
-        radius = width < height ? (int)(width/2*0.9) : (int)(height - 100/(2*0.9));
+        int radius = width < height ? (int)(width/2*0.9) : (int)(height - 100/(2*0.9));
         int radiusAux = radius;
 
         Paint pincel = new Paint();
@@ -64,12 +57,6 @@ public class GNSSRadarDraw extends View {
         if (currentStatus != null) {
             for(int element = 0; element < currentStatus.getSatelliteCount(); element++) {
                 float intensidade =  currentStatus.getCn0DbHz(element);
-                boolean red = intensidade <= 10,
-                        orange = intensidade > 10 && intensidade <= 20,
-                        yellow = intensidade > 20 && intensidade <= 30,
-                        lightGreen = intensidade > 30 && intensidade <= 50,
-                        green = intensidade > 50 && intensidade <= 100;
-
                 float azimuth = currentStatus.getAzimuthDegrees(element),
                         elevation = currentStatus.getElevationDegrees(element),
                         xc = (float)(radius * Math.cos(Math.toRadians(elevation)) * Math.sin(Math.toRadians(azimuth))),
@@ -77,44 +64,26 @@ public class GNSSRadarDraw extends View {
                         x = xCircle(xc),
                         y = yCircle(yc);
 
-                int raio = 15;
-
-                if (red) {
-                    pincel.setColor(Color.RED);
-                }
-                else if (orange) {
-                    pincel.setColor(Color.rgb(255, 77, 0));
-                }
-                else if (yellow) {
-                    pincel.setColor(Color.YELLOW);
-                }
-                else if (lightGreen) {
-                    pincel.setColor(Color.rgb(148, 255, 140));
-                }
-                else if (green) {
-                    pincel.setColor(Color.GREEN);
-                }
-
                 pincel.setTextAlign(Paint.Align.LEFT);
                 pincel.setStyle(Paint.Style.FILL);
                 pincel.setTextSize(40);
+                pincel.setColor(colorPicker(intensidade));
 
                 switch (currentStatus.getConstellationType(element)) {
                     case GnssStatus.CONSTELLATION_GPS:
-                        tela.drawRect(xCircle(xc - 13), yCircle(yc + 15), xCircle(xc) + 15, yCircle(yc) + 15, pincel);
+                        tela.drawRect(xCircle(xc - 15), yCircle(yc + 18), xCircle(xc) + 18, yCircle(yc) + 18, pincel);
                         break;
                     case GnssStatus.CONSTELLATION_GLONASS:
                         drawTriangle(x, y, pincel, tela);
                         break;
                     case GnssStatus.CONSTELLATION_GALILEO:
-                        drawTrapezio(x, y, pincel, tela);
+                        tela.drawCircle(xCircle(xc), yCircle(yc), 18, pincel);
                         break;
                     case GnssStatus.CONSTELLATION_BEIDOU:
                         drawLosango(x, y, pincel, tela);
                         break;
                     case GnssStatus.CONSTELLATION_UNKNOWN:
-                        pincel.setColor(Color.GRAY);
-                        tela.drawCircle(xCircle(xc), yCircle(yc), raio, pincel);
+                        drawPentagon(x, y, pincel, tela);
                         break;
                 }
                 String satelliteId = " " + currentStatus.getSvid(element) + "";
@@ -145,24 +114,10 @@ public class GNSSRadarDraw extends View {
         Path path = new Path();
         path.setFillType(Path.FillType.EVEN_ODD);
         path.moveTo(x, y);
-        path.lineTo(x, y - 15);
-        path.lineTo(x + 15, y + 15);
-        path.lineTo(x - 15, y + 15);
-        path.lineTo(x, y - 15);
-
-        tela.drawPath(path, pincel);
-    }
-
-    public void drawTrapezio(float x, float y, Paint pincel, Canvas tela) {
-        pincel.setStrokeWidth(2);
-        pincel.setAntiAlias(true);
-
-        Path path = new Path();
-
-        path.moveTo(x, y - 15);
-        path.lineTo(x + 15, y + 15);
-        path.lineTo(x - 15, y + 15);
-        path.lineTo(x - 15, y - 15);
+        path.lineTo(x, y - 18);
+        path.lineTo(x + 18, y + 18);
+        path.lineTo(x - 18, y + 18);
+        path.lineTo(x, y - 18);
 
         tela.drawPath(path, pincel);
     }
@@ -174,12 +129,50 @@ public class GNSSRadarDraw extends View {
         Path path = new Path();
         path.setFillType(Path.FillType.EVEN_ODD);
         path.moveTo(x, y);
-        path.lineTo(x, y - 20);
-        path.lineTo(x + 20, y);
-        path.lineTo(x, y + 20);
-        path.lineTo(x -20, y);
-        path.lineTo(x, y - 20);
+        path.lineTo(x, y - 23);
+        path.lineTo(x + 23, y);
+        path.lineTo(x, y + 23);
+        path.lineTo(x -23, y);
+        path.lineTo(x, y - 23);
 
         tela.drawPath(path, pincel);
+    }
+
+    public void drawPentagon(float x, float y, Paint pincel, Canvas tela) {
+        pincel.setStrokeWidth(2);
+        pincel.setAntiAlias(true);
+
+        Path path = new Path();
+        path.setFillType(Path.FillType.EVEN_ODD);
+        path.moveTo(x, y); // mid
+        path.lineTo(x - 13, y - 19);
+        path.lineTo(x + 13, y - 19);
+        path.lineTo(x + 27, y);
+        path.lineTo(x + 13, y + 19);
+        path.lineTo(x - 13, y + 19);
+        path.lineTo(x - 27, y);
+        path.lineTo(x - 13, y - 19);
+
+        tela.drawPath(path, pincel);
+    }
+
+    public int colorPicker(float intensidade) {
+
+        if (intensidade <= 10) {
+            return Color.RED;
+        }
+        else if (intensidade > 10 && intensidade <= 20) {
+            return Color.rgb(255, 77, 0);
+        }
+        else if (intensidade > 20 && intensidade <= 30) {
+            return Color.YELLOW;
+        }
+        else if (intensidade > 30 && intensidade <= 50) {
+            return Color.GREEN;
+        }
+        else if (intensidade > 50 && intensidade <= 100) {
+            return Color.MAGENTA;
+        }
+        return 0;
     }
 }

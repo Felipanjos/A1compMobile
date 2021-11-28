@@ -114,28 +114,28 @@ public class GNSSRadarActivity extends AppCompatActivity implements LocationList
                 red = getResources().getString(R.string.red),
                 orange = getResources().getString(R.string.laranja),
                 yellow = getResources().getString(R.string.yellow),
-                lightgreen = getResources().getString(R.string.lightgreen),
                 green = getResources().getString(R.string.verde),
+                rosa =  getResources().getString(R.string.rosa),
                 square = getResources().getString(R.string.square),
                 losango = getResources().getString(R.string.losango),
                 triangulo = getResources().getString(R.string.triangulo),
-                trapezio = getResources().getString(R.string.trapezio),
+                hexagono = getResources().getString(R.string.hexagon),
                 circulo = getResources().getString(R.string.circulo);
 
         msg = getResources().getString(R.string.figures) + "\n" +
                 square + " GPS \uD83C\uDDFA\uD83C\uDDF8 \n" +
                 losango + " BeiDou \uD83C\uDDE8\uD83C\uDDF3 \n" +
                 triangulo + " GLONASS \uD83C\uDDF7\uD83C\uDDFA \n" +
-                trapezio + " Galileo \uD83C\uDDEA\uD83C\uDDFA \n" +
-                circulo + " Unknown satellite/origin";
+                circulo + " Galileo \uD83C\uDDEA\uD83C\uDDFA \n" +
+                hexagono + " Unknown satellite/origin";
         formatos.setText(msg);
 
         msg = getResources().getString(R.string.signalQuality) + "\n" +
-                red + " 0 ~ 10\n" +
-                orange + " 10.1 ~ 20\n" +
-                yellow + " 20.1 ~ 30\n" +
-                lightgreen + " 30.1 ~ 50\n" +
-                green + " 50.1 ~ 100";
+                red + " 0 - 10\n" +
+                orange + " 10.1 - 20\n" +
+                yellow + " 20.1 - 30\n" +
+                green + " 30.1 - 50\n" +
+                rosa + " 50.1 - 100";
         sinal.setText(msg);
     }
 }
