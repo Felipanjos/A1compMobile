@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(viewConfig);
                 break;
             case R.id.buttonGnss:
-                Intent viewGnss = new Intent(this, GNSSSelectorActivity.class);
+                Intent viewGnss = new Intent(this, GNSSRadarActivity.class);
                 startActivity(viewGnss);
                 break;
             case R.id.buttonHistorico:
