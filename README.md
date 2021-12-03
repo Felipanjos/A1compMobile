@@ -1,7 +1,7 @@
 # A1compMobile
 
 Projeto semestral da disciplina Computação para Dispositivos Móveis, ministrada pelo Professor Doutor Jorge Campos.
-Semestre de 2021.2
+Semestre de 2021.2.
 
 Equipe: 
 Felipe Santos dos Anjos
